@@ -5,6 +5,7 @@ namespace App\Repository;
 
 
 use App\Models\Post;
+use Illuminate\Database\Eloquent\Collection;
 
 class PostRepository
 {
@@ -14,5 +15,10 @@ class PostRepository
             'user_id' => $user_id,
             'body' => $body,
         ])->id;
+    }
+
+    public function findAll(): Collection
+    {
+        return Post::all();
     }
 }

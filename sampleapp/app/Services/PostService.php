@@ -5,6 +5,7 @@ namespace App\Services;
 
 
 use App\Repository\PostRepository;
+use Illuminate\Database\Eloquent\Collection;
 
 class PostService
 {
@@ -19,5 +20,11 @@ class PostService
     {
         $id = $this->repo->create($user_id, $body);
         return $id;
+    }
+
+    public function findAll(): Collection
+    {
+        $posts = $this->repo->findAll();
+        return $posts;
     }
 }

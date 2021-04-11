@@ -6,6 +6,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\PostCreateRequest;
 use App\Services\PostService;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 class PostController extends Controller
@@ -25,5 +26,13 @@ class PostController extends Controller
         );
         $data['id'] = $id;
         return response()->json($data, Response::HTTP_CREATED);
+    }
+
+    public function list(Request $request): JsonResponse
+    {
+        $posts = $this->service->findAll();
+
+        $data['posts'] = $posts;
+        return response()->json($data, Response::HTTP_OK);
     }
 }
