@@ -6,7 +6,6 @@ namespace App\Http\Requests;
 
 class PostCreateRequest extends ApiRequest
 {
-    public int $user_id;
     /**
      * Determine if the user is authorized to make this request.
      *
