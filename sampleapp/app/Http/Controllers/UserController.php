@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\UserRegistRequest;
+use App\Http\Requests\UserRegisterRequest;
 use App\Services\UserService;
 use Illuminate\Http\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
@@ -18,7 +18,7 @@ class UserController extends Controller
         $this->service = new UserService();
     }
 
-    public function register(UserRegistRequest $req): JsonResponse
+    public function register(UserRegisterRequest $req): JsonResponse
     {
         $id = $this->service->register(
             $req->input('name'),
