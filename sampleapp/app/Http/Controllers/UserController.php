@@ -6,20 +6,25 @@ namespace App\Http\Controllers;
 use App\Http\Requests\UserRegistRequest;
 use App\Services\UserService;
 use Illuminate\Http\JsonResponse;
+use Symfony\Component\HttpFoundation\Response;
 use JetBrains\PhpStorm\Pure;
 
 class UserController extends Controller
 {
     private UserService $service;
 
-    #[Pure] public function __construct(UserService $service)
+    #[Pure] public function __construct()
     {
         $this->service = new UserService();
     }
 
     public function register(UserRegistRequest $req): JsonResponse
     {
-        $req->input('name');
-        return response()->json('fuck');
+        $id = $this->service->register(
+            $req->input('name'),
+            $req->input('email'),
+            $req->input('password')
+        );
+        return response()->json($id,Response::HTTP_CREATED);
     }
 }
