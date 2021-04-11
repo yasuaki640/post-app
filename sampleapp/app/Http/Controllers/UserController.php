@@ -3,11 +3,13 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\GetByRequest;
 use App\Http\Requests\UserRegisterRequest;
 use App\Services\UserService;
 use Illuminate\Http\JsonResponse;
-use Symfony\Component\HttpFoundation\Response;
 use JetBrains\PhpStorm\Pure;
+use Symfony\Component\HttpFoundation\Response;
+use function PHPUnit\Framework\isNull;
 
 class UserController extends Controller
 {
@@ -29,5 +31,14 @@ class UserController extends Controller
         return response()->json($data, Response::HTTP_CREATED);
     }
 
+    public function getById(GetByRequest $request, int $id): JsonResponse
+    {
+        $user = $this->service->findById($id);
+        if (is_null($user)) {
+        return response()->json([], Response::HTTP_NOT_FOUND);
+        }
 
+        $data['user'] = $user;
+        return response()->json($data, Response::HTTP_CREATED);
+    }
 }
