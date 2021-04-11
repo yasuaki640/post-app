@@ -23,8 +23,11 @@ class UserController extends Controller
         $id = $this->service->register(
             $req->input('name'),
             $req->input('email'),
-            $req->input('password')
+            $req->input('password'),
         );
-        return response()->json($id,Response::HTTP_CREATED);
+        $data['id'] = $id;
+        return response()->json($data, Response::HTTP_CREATED);
     }
+
+
 }
