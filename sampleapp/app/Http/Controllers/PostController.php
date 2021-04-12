@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\PostCreateRequest;
+use App\Http\Requests\PostUpdateRequest;
 use App\Services\PostService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -18,7 +18,7 @@ class PostController extends Controller
         $this->service = new PostService();
     }
 
-    public function post(PostCreateRequest $request): JsonResponse
+    public function post(PostUpdateRequest $request): JsonResponse
     {
         $id = $this->service->create(
             $request->input('user_id'),
@@ -33,6 +33,17 @@ class PostController extends Controller
         $posts = $this->service->findAll();
 
         $data['posts'] = $posts;
+        return response()->json($data, Response::HTTP_OK);
+    }
+
+    public function update(PostUpdateRequest $request): JsonResponse
+    {
+        $post = $this->service->update(
+            $request->input('id'),
+            $request->input('body'),
+        );
+
+        $data['post'] = $post;
         return response()->json($data, Response::HTTP_OK);
     }
 }

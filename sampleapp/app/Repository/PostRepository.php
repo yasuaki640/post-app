@@ -21,4 +21,15 @@ class PostRepository
     {
         return Post::all();
     }
+
+    public function update(int $id, string $body): Post
+    {
+        $post = Post::find($id)->fill([
+            'id' => $id,
+            'post' => $body
+        ]);
+        $post->save();
+
+        return $post;
+    }
 }

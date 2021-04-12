@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace App\Services;
 
 
+use App\Models\Post;
 use App\Repository\PostRepository;
 use Illuminate\Database\Eloquent\Collection;
 
@@ -26,5 +27,11 @@ class PostService
     {
         $posts = $this->repo->findAll();
         return $posts;
+    }
+
+    public function update(int $id, string $body): Post
+    {
+        $post = $this->repo->update($id, $body);
+        return $post;
     }
 }
