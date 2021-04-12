@@ -9,7 +9,6 @@ use App\Services\UserService;
 use Illuminate\Http\JsonResponse;
 use JetBrains\PhpStorm\Pure;
 use Symfony\Component\HttpFoundation\Response;
-use function PHPUnit\Framework\isNull;
 
 class UserController extends Controller
 {
