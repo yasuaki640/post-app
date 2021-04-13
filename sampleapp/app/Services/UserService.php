@@ -12,9 +12,9 @@ class UserService
 {
     private UserRepository $repo;
 
-    #[Pure] public function __construct()
+    #[Pure] public function __construct(UserRepository $repo)
     {
-        $this->repo = new UserRepository;
+        $this->repo = $repo;
     }
 
     public function register(string $name, string $email, string $password): int

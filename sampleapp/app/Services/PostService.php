@@ -12,9 +12,9 @@ class PostService
 {
     private PostRepository $repo;
 
-    public function __construct()
+    public function __construct(PostRepository $repo)
     {
-        $this->repo = new PostRepository();
+        $this->repo = $repo;
     }
 
     public function create(int $user_id, string $body): int
