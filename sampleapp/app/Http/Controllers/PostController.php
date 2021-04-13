@@ -13,9 +13,9 @@ class PostController extends Controller
 {
     private PostService $service;
 
-    public function __construct()
+    public function __construct(PostService $service)
     {
-        $this->service = new PostService();
+        $this->service = $service;
     }
 
     public function post(PostUpdateRequest $request): JsonResponse

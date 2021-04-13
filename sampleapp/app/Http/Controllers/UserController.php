@@ -14,9 +14,9 @@ class UserController extends Controller
 {
     private UserService $service;
 
-    #[Pure] public function __construct()
+    #[Pure] public function __construct(UserService $service)
     {
-        $this->service = new UserService();
+        $this->service = $service;
     }
 
     public function register(UserRegisterRequest $req): JsonResponse
@@ -34,7 +34,7 @@ class UserController extends Controller
     {
         $user = $this->service->findById($id);
         if (is_null($user)) {
-        return response()->json([], Response::HTTP_NOT_FOUND);
+            return response()->json([], Response::HTTP_NOT_FOUND);
         }
 
         $data['user'] = $user;
