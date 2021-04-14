@@ -1,10 +1,12 @@
 <?php
 
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\Post;
 
 
-class PostUpdateRequest extends ApiRequest
+use App\Http\Requests\ApiRequest;
+
+class PostRequest extends ApiRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,7 +26,7 @@ class PostUpdateRequest extends ApiRequest
     public function rules()
     {
         return [
-            'id' => 'required|integer',
+            'user_id' => 'required|integer',
             'body' => 'required|string',
         ];
     }

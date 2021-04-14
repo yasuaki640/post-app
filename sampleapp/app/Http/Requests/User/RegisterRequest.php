@@ -1,9 +1,11 @@
 <?php
 declare(strict_types=1);
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\User;
 
-class UserRegisterRequest extends ApiRequest
+use App\Http\Requests\ApiRequest;
+
+class RegisterRequest extends ApiRequest
 {
     /**
      * Determine if the user is authorized to make this request.

@@ -1,10 +1,12 @@
 <?php
 
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\Post;
 
 
-class GetByRequest extends ApiRequest
+use App\Http\Requests\ApiRequest;
+
+class UpdateRequest extends ApiRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -25,19 +27,7 @@ class GetByRequest extends ApiRequest
     {
         return [
             'id' => 'required|integer',
+            'body' => 'required|string',
         ];
     }
-
-    //
-
-    /**
-     * Add path param as validation targets
-     * @return array|null
-     */
-    public function validationData()
-    {
-        return $this->route()->parameters() + $this->all();
-    }
-
-
 }

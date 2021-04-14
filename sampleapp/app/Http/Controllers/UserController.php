@@ -3,8 +3,8 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\GetByRequest;
-use App\Http\Requests\UserRegisterRequest;
+use App\Http\Requests\User\GetByIdRequest;
+use App\Http\Requests\User\RegisterRequest;
 use App\Services\UserService;
 use Illuminate\Http\JsonResponse;
 use JetBrains\PhpStorm\Pure;
@@ -19,7 +19,7 @@ class UserController extends Controller
         $this->service = $service;
     }
 
-    public function register(UserRegisterRequest $req): JsonResponse
+    public function register(RegisterRequest $req): JsonResponse
     {
         $id = $this->service->register(
             $req->input('name'),
@@ -30,7 +30,7 @@ class UserController extends Controller
         return response()->json($data, Response::HTTP_CREATED);
     }
 
-    public function getById(GetByRequest $request, int $id): JsonResponse
+    public function getById(GetByIdRequest $request, int $id): JsonResponse
     {
         $user = $this->service->findById($id);
         if (is_null($user)) {

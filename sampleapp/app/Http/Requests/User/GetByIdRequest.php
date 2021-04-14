@@ -1,10 +1,12 @@
 <?php
 
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\User;
 
 
-class PostCreateRequest extends ApiRequest
+use App\Http\Requests\ApiRequest;
+
+class GetByIdRequest extends ApiRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,8 +26,20 @@ class PostCreateRequest extends ApiRequest
     public function rules()
     {
         return [
-            'user_id' => 'required|integer',
-            'body' => 'required|string',
+            'id' => 'required|integer',
         ];
     }
+
+    //
+
+    /**
+     * Add path param as validation targets
+     * @return array|null
+     */
+    public function validationData()
+    {
+        return $this->route()->parameters() + $this->all();
+    }
+
+
 }
