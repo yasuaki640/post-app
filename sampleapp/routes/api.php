@@ -24,3 +24,4 @@ Route::get('/user/{id}', 'App\Http\Controllers\UserController@getById');
 Route::post('/post', 'App\Http\Controllers\PostController@post');
 Route::get('/post', 'App\Http\Controllers\PostController@list');
 
+Route::post('/login','App\Http\Controllers\AuthController@login');
