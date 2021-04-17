@@ -2,6 +2,7 @@
 
 namespace Tests\Feature\Controllers;
 
+use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Http\Response;
@@ -31,15 +32,35 @@ class UserControllerTest extends TestCase
         $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
     }
 
-    public function test_create_success()
+    public function test_create_validation_failure_email_already_taken()
     {
-        $response = $this->post('/api/users', [
+        User::create([
             'name' => 'yasu',
             'email' => 'yasu@gmail.com',
             'password' => '12345678'
         ]);
 
+        $response = $this->post('/api/users', [
+            'name' => 'tako',
+            'email' => 'yasu@gmail.com',
+            'password' => '87654321'
+        ]);
 
         $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
+    }
+
+    public function test_create_success()
+    {
+        $req = [
+            'name' => 'yasu',
+            'email' => 'yasuyasr6j48uyasu@gmail.com',
+            'password' => '12345678'
+        ];
+        $user = User::create($req);
+
+        $response = $this->post('/api/users', $req);
+
+        $response->assertStatus(Response::HTTP_CREATED);
+        $this->assertDatabaseHas('users', $req);
     }
 }
