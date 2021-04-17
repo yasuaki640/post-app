@@ -9,7 +9,7 @@ use Tests\TestCase;
 
 class UserControllerTest extends TestCase
 {
-    public function test_create_validation_failer()
+    public function test_create_validation_failure()
     {
         $response = $this->post('/api/users', []);
 
