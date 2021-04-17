@@ -17,10 +17,17 @@ class UserService
         $this->repo = $repo;
     }
 
-    public function register(string $name, string $email, string $password): int
+    /**
+     * @param array $params
+     * @return int User id
+     */
+    public function store(array $params): int
     {
-        $id = $this->repo->create($name, $email, $password);
-        return $id;
+        return $this->repo->store(
+            $params['name'],
+            $params['email'],
+            $params['password']
+        );
     }
 
     public function findById(int $id): ?User

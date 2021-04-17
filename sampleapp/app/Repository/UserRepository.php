@@ -8,7 +8,7 @@ use App\Models\User;
 
 class UserRepository
 {
-    public function create(string $name, string $email, string $password): int
+    public function store(string $name, string $email, string $password): int
     {
         return User::create([
             'name' => $name,

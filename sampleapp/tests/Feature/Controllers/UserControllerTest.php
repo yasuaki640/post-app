@@ -49,18 +49,18 @@ class UserControllerTest extends TestCase
         $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
     }
 
-    public function test_create_success()
+    public function test_store_success()
     {
-        $req = [
+        $response = $this->post('/api/users', [
             'name' => 'yasu',
-            'email' => 'yasuyasr6j48uyasu@gmail.com',
+            'email' => 'yasu@gmail.com',
             'password' => '12345678'
-        ];
-        $user = User::create($req);
-
-        $response = $this->post('/api/users', $req);
+        ]);
 
         $response->assertStatus(Response::HTTP_CREATED);
-        $this->assertDatabaseHas('users', $req);
+        $this->assertDatabaseHas('users', [
+            'name' => 'yasu',
+            'email' => 'yasu@gmail.com',
+        ]);
     }
 }
