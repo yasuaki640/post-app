@@ -9,9 +9,36 @@ use Tests\TestCase;
 
 class UserControllerTest extends TestCase
 {
-    public function test_create_validation_failure()
+    use RefreshDatabase;
+
+    public function test_create_validation_failure_password_of_7_chars()
     {
-        $response = $this->post('/api/users', []);
+        $response = $this->post('/api/users', [
+            'name' => 'yasu',
+            'email' => 'yasu@gmail.com',
+            'password' => '1234567'
+        ]);
+        $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
+    }
+
+    public function test_create_validation_failure_email_wrong_format()
+    {
+        $response = $this->post('/api/users', [
+            'name' => 'yasu',
+            'email' => 'yasugmail.com',
+            'password' => '1234567'
+        ]);
+        $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
+    }
+
+    public function test_create_success()
+    {
+        $response = $this->post('/api/users', [
+            'name' => 'yasu',
+            'email' => 'yasu@gmail.com',
+            'password' => '12345678'
+        ]);
+
 
         $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
     }
