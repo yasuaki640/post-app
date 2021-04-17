@@ -5,7 +5,7 @@ namespace App\Http\Requests\User;
 
 use App\Http\Requests\ApiRequest;
 
-class RegisterRequest extends ApiRequest
+class StoreRequest extends ApiRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -26,8 +26,8 @@ class RegisterRequest extends ApiRequest
     {
         return [
             'name' => 'required|string',
-            'email' => 'required|email',
-            'password' => 'required|string',
+            'email' => 'required|email|unique:users',
+            'password' => 'required|string|min:8',
         ];
     }
 }
