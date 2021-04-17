@@ -1,6 +1,10 @@
 <?php
 
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\PostController;
+use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Router;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,15 +17,18 @@ use Illuminate\Support\Facades\Route;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
+$api = app(Router::class);
+
+$api->group(['middleware'=>'jwt.auth'],function ());
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::post('/user', 'App\Http\Controllers\UserController@register');
-Route::get('/user/{id}', 'App\Http\Controllers\UserController@getById');
+Route::post('/user', [UserController::class, 'register']);
+Route::get('/user/{id}', [UserController::class, 'getById']);
 
-Route::post('/post', 'App\Http\Controllers\PostController@post');
-Route::get('/post', 'App\Http\Controllers\PostController@list');
+Route::post('/post', [PostController::class, 'post']);
+Route::get('/post', [PostController::class, 'list']);
 
-Route::post('/login','App\Http\Controllers\AuthController@login');
+Route::post('/login', [AuthController::class, 'login']);
