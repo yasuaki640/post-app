@@ -11,6 +11,7 @@ use Illuminate\Notifications\DatabaseNotification;
 use Illuminate\Notifications\DatabaseNotificationCollection;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Hash;
 use Tymon\JWTAuth\Contracts\JWTSubject;
 
 /**
@@ -73,6 +74,17 @@ class User extends Authenticatable implements JWTSubject
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    /**
+     * Automatically creates hash for the user password.
+     *
+     * @param string $value
+     * @return void
+     */
+    public function setPasswordAttribute(string $value)
+    {
+        $this->attributes['password'] = Hash::make($value);
+    }
 
     public function getJWTIdentifier()
     {
