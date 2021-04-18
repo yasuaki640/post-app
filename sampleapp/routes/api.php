@@ -15,10 +15,11 @@ use Illuminate\Support\Facades\Route;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
+Route::post('login', [AuthController::class, 'login'])->name('login');
+
+Route::apiResource('users', UserController::class)->only('store');
 
 Route::middleware('auth:api')->group(function () {
     Route::apiResource('users', UserController::class)->except('store');
 });
 
-Route::apiResource('users', UserController::class)->only('store');
-Route::post('login', [AuthController::class, 'login'])->name('login');
