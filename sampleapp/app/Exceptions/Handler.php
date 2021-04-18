@@ -2,6 +2,8 @@
 
 namespace App\Exceptions;
 
+use Illuminate\Auth\Access\AuthorizationException;
+use Illuminate\Auth\AuthenticationException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Response;
@@ -54,6 +56,6 @@ class Handler extends ExceptionHandler
                 $response['trace'] = $e->getTrace();
             }
         }
-        return response()->json($response, $error->getStatusCode());
+        return parent::render($request, $e);
     }
 }
