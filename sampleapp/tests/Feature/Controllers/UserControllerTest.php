@@ -63,4 +63,10 @@ class UserControllerTest extends TestCase
             'email' => 'yasu@gmail.com',
         ]);
     }
+
+    public function test_index_failure_auth_failure()
+    {
+        $response = $this->getJson('/api/users');
+        $response->assertStatus(Response::HTTP_UNAUTHORIZED);
+    }
 }
