@@ -69,4 +69,10 @@ class UserControllerTest extends TestCase
         $response = $this->getJson('/api/users');
         $response->assertStatus(Response::HTTP_UNAUTHORIZED);
     }
+
+    public function test_destroy_failure_auth_failure()
+    {
+        $response = $this->deleteJson('/api/users/1');
+        $response->assertStatus(Response::HTTP_UNAUTHORIZED);
+    }
 }
