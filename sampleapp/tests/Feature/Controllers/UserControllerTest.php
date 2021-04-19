@@ -70,13 +70,15 @@ class UserControllerTest extends TestCase
         $response->assertStatus(Response::HTTP_UNAUTHORIZED);
     }
 
-    public function test_index_failure_validation()
+    public function test_index_success()
     {
-        $user = User::factory()->create();
+        $users = User::factory()->count(3)->create();
 
-        $response = $this->actingAs($user)
+        $response = $this->actingAs($users->first())
             ->get('/api/users')
             ->assertStatus(Response::HTTP_OK);
+
+        $response->assertExactJson($users->toArray());
     }
 
     public function test_destroy_failure_auth_failure()

@@ -25,11 +25,12 @@ class UserController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return Response
+     * @return JsonResponse
      */
     public function index()
     {
-        //
+        $users = $this->service->findAll();
+        return \response()->json($users, Response::HTTP_OK);
     }
 
     /**

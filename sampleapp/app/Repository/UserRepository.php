@@ -5,6 +5,7 @@ namespace App\Repository;
 
 
 use App\Models\User;
+use Illuminate\Database\Eloquent\Collection;
 
 class UserRepository
 {
@@ -20,5 +21,10 @@ class UserRepository
     public function findById(int $id): ?User
     {
         return User::find($id);
+    }
+
+    public function findAll(): Collection|array
+    {
+        return User::all();
     }
 }

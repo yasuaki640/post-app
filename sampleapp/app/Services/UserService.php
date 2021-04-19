@@ -6,6 +6,7 @@ namespace App\Services;
 
 use App\Models\User;
 use App\Repository\UserRepository;
+use Illuminate\Database\Eloquent\Collection;
 use JetBrains\PhpStorm\Pure;
 
 class UserService
@@ -33,5 +34,10 @@ class UserService
     public function findById(int $id): ?User
     {
         return $this->repo->findById($id);
+    }
+
+    public function findAll(): Collection|array
+    {
+        return $this->repo->findAll();
     }
 }
