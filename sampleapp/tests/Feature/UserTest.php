@@ -8,7 +8,7 @@ use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Http\Response;
 use Tests\TestCase;
 
-class UserControllerTest extends TestCase
+class UserTest extends TestCase
 {
     use RefreshDatabase;
 
