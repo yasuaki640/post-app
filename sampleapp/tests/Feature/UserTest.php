@@ -89,7 +89,6 @@ class UserTest extends TestCase
             ->get('/api/users/1e');
 
         $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
-        $response->assertExactJson($user);
     }
 
     public function test_destroy_failure_auth_failure()
