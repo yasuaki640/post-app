@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\User\ShowRequest;
 use App\Http\Requests\User\StoreRequest;
 use App\Models\User;
 use App\Services\UserService;
@@ -48,12 +49,12 @@ class UserController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param User $user
+     * @param ShowRequest $request
      * @return Response
      */
-    public function show(User $user)
+    public function show(ShowRequest $request): Response
     {
-        //
+        $id = $request->input('id');
     }
 
     /**

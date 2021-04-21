@@ -6,7 +6,7 @@ namespace App\Http\Requests\User;
 
 use App\Http\Requests\ApiRequest;
 
-class GetByIdRequest extends ApiRequest
+class ShowRequest extends ApiRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -26,20 +26,7 @@ class GetByIdRequest extends ApiRequest
     public function rules()
     {
         return [
-            'id' => 'required|integer',
+            'user' => 'required|integer',
         ];
     }
-
-    //
-
-    /**
-     * Add path param as validation targets
-     * @return array|null
-     */
-    public function validationData()
-    {
-        return $this->route()->parameters() + $this->all();
-    }
-
-
 }

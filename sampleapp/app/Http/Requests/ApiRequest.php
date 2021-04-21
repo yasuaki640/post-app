@@ -11,12 +11,17 @@ use Illuminate\Http\Response;
 
 abstract class ApiRequest extends FormRequest
 {
+    public function validationData(): ?array
+    {
+        return $this->route()->parameters() + $this->all();
+    }
+
     protected function failedValidation(Validator $validator)
     {
         $response['message'] = 'Failed validation.';
-        $response['errors']  = $validator->errors()->toArray();
+        $response['errors'] = $validator->errors()->toArray();
         throw new HttpResponseException(
-            response()->json( $response, Response::HTTP_UNPROCESSABLE_ENTITY)
+            response()->json($response, Response::HTTP_UNPROCESSABLE_ENTITY)
         );
     }
 }

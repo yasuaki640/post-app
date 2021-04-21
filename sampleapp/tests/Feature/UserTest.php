@@ -81,6 +81,17 @@ class UserTest extends TestCase
         $response->assertExactJson($users->toArray());
     }
 
+    public function test_show_failure_id_has_string()
+    {
+        $user = User::factory()->create();
+
+        $response = $this->actingAs($user)
+            ->get('/api/users/1e');
+
+        $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
+        $response->assertExactJson($user);
+    }
+
     public function test_destroy_failure_auth_failure()
     {
         $response = $this->deleteJson('/api/users/1');
