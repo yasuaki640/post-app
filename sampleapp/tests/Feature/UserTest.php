@@ -91,6 +91,17 @@ class UserTest extends TestCase
         $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
     }
 
+    public function test_show_success()
+    {
+        $user = User::factory()->create();
+
+        $response = $this->actingAs($user)
+            ->get('/api/users/1');
+
+        $response->assertStatus(Response::HTTP_OK);
+        $response->assertExactJson($user);
+    }
+
     public function test_destroy_failure_auth_failure()
     {
         $response = $this->deleteJson('/api/users/1');
