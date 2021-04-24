@@ -17,9 +17,11 @@ use Illuminate\Support\Facades\Route;
 */
 Route::post('login', [AuthController::class, 'login'])->name('login');
 
-Route::apiResource('users', UserController::class)->only('store');
+Route::post('/users', [UserController::class, 'store']);
 
 Route::middleware('auth:api')->group(function () {
-    Route::apiResource('users', UserController::class)->except('store');
+    Route::get('/users', [UserController::class, 'index']);
+    Route::get('/users/{user_id}', [UserController::class, 'show']);
+    Route::delete('/users/{user_id}', [UserController::class, 'destroy']);
 });
 

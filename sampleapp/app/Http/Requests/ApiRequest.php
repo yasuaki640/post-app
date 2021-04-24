@@ -11,6 +11,7 @@ use Illuminate\Http\Response;
 
 abstract class ApiRequest extends FormRequest
 {
+    //Validate route params
     public function validationData(): ?array
     {
         return $this->route()->parameters() + $this->all();

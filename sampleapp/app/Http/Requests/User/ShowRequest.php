@@ -26,7 +26,7 @@ class ShowRequest extends ApiRequest
     public function rules()
     {
         return [
-            'user' => 'required|integer',
+            'user_id' => 'required|integer',
         ];
     }
 }

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\User\ShowRequest;
 use App\Http\Requests\User\StoreRequest;
+use App\Http\Resources\UserResource;
 use App\Models\User;
 use App\Services\UserService;
 use Illuminate\Http\JsonResponse;
@@ -50,11 +51,15 @@ class UserController extends Controller
      * Display the specified resource.
      *
      * @param ShowRequest $request
-     * @return Response
+     * @return JsonResponse
      */
-    public function show(ShowRequest $request): Response
+    public function show(ShowRequest $request): JsonResponse
     {
-        $id = $request->input('id');
+        $id = intval($request->user_id);
+        $user = $this->service->findById($id);
+
+        $data = new UserResource($user);
+        return \response()->json($data, Response::HTTP_OK);
     }
 
     /**

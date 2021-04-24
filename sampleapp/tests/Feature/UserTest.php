@@ -2,10 +2,12 @@
 
 namespace Tests\Feature\Controllers;
 
+use App\Http\Resources\UserResource;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Http\Response;
+use Symfony\Component\HttpFoundation\Request;
 use Tests\TestCase;
 
 class UserTest extends TestCase
@@ -14,21 +16,29 @@ class UserTest extends TestCase
 
     public function test_create_validation_failure_password_of_7_chars()
     {
-        $response = $this->post('/api/users', [
+        $req = [
             'name' => 'yasu',
             'email' => 'yasu@gmail.com',
             'password' => '1234567'
-        ]);
+        ];
+
+        $header = ['Accept' => 'application/json'];
+
+        $response = $this->post('/api/users', $req, $header);
         $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
     }
 
     public function test_create_validation_failure_email_wrong_format()
     {
-        $response = $this->post('/api/users', [
+        $req = [
             'name' => 'yasu',
-            'email' => 'yasugmail.com',
+            'email' => 'yasu@gmail.com',
             'password' => '1234567'
-        ]);
+        ];
+
+        $header = ['Accept' => 'application/json'];
+
+        $response = $this->post('/api/users', $req, $header);
         $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
     }
 
@@ -40,22 +50,29 @@ class UserTest extends TestCase
             'password' => '12345678'
         ]);
 
-        $response = $this->post('/api/users', [
-            'name' => 'tako',
+        $req = [
+            'name' => 'yasu',
             'email' => 'yasu@gmail.com',
-            'password' => '87654321'
-        ]);
+            'password' => '1234567'
+        ];
 
+        $header = ['Accept' => 'application/json'];
+
+        $response = $this->post('/api/users', $req, $header);
         $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
     }
 
     public function test_store_success()
     {
-        $response = $this->post('/api/users', [
+        $req = [
             'name' => 'yasu',
             'email' => 'yasu@gmail.com',
             'password' => '12345678'
-        ]);
+        ];
+
+        $header = ['Accept' => 'application/json'];
+
+        $response = $this->post('/api/users', $req, $header);
 
         $response->assertStatus(Response::HTTP_CREATED);
         $this->assertDatabaseHas('users', [
@@ -66,7 +83,7 @@ class UserTest extends TestCase
 
     public function test_index_failure_auth_failure()
     {
-        $response = $this->getJson('/api/users');
+        $response = $this->getJson('/api/users', ['Accept' => 'application/json']);
         $response->assertStatus(Response::HTTP_UNAUTHORIZED);
     }
 
@@ -75,9 +92,9 @@ class UserTest extends TestCase
         $users = User::factory()->count(3)->create();
 
         $response = $this->actingAs($users->first())
-            ->get('/api/users')
-            ->assertStatus(Response::HTTP_OK);
+            ->get('/api/users', ['Accept' => 'application/json']);
 
+        $response->assertStatus(Response::HTTP_OK);
         $response->assertExactJson($users->toArray());
     }
 
@@ -86,7 +103,7 @@ class UserTest extends TestCase
         $user = User::factory()->create();
 
         $response = $this->actingAs($user)
-            ->get('/api/users/1e');
+            ->get('/api/users/1e', ['Accept' => 'application/json']);
 
         $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
     }
@@ -96,15 +113,17 @@ class UserTest extends TestCase
         $user = User::factory()->create();
 
         $response = $this->actingAs($user)
-            ->get('/api/users/1');
+            ->get('/api/users/' . $user->id, ['Accept' => 'application/json']);
 
         $response->assertStatus(Response::HTTP_OK);
-        $response->assertExactJson($user);
+
+        $expected = UserResource::make($user)->jsonSerialize();
+        $response->assertExactJson($expected);
     }
 
     public function test_destroy_failure_auth_failure()
     {
-        $response = $this->deleteJson('/api/users/1');
+        $response = $this->deleteJson('/api/users/1', [], ['Accept' => 'application/json']);
         $response->assertStatus(Response::HTTP_UNAUTHORIZED);
     }
 }
