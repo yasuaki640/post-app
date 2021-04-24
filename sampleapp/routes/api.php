@@ -22,6 +22,7 @@ Route::post('/users', [UserController::class, 'store']);
 Route::middleware('auth:api')->group(function () {
     Route::get('/users', [UserController::class, 'index']);
     Route::get('/users/{user_id}', [UserController::class, 'show']);
+    Route::put('/users', [UserController::class, 'edit']);
     Route::delete('/users/{user_id}', [UserController::class, 'destroy']);
 });
 

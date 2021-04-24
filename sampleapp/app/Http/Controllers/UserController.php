@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\User\EditRequest;
 use App\Http\Requests\User\ShowRequest;
 use App\Http\Requests\User\StoreRequest;
 use App\Http\Resources\UserResource;
@@ -65,10 +66,10 @@ class UserController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param User $user
+     * @param EditRequest $request
      * @return Response
      */
-    public function edit(User $user)
+    public function edit(EditRequest $request)
     {
         //
     }
