@@ -5,6 +5,7 @@ namespace App\Services;
 
 
 use App\Models\Post;
+use App\Repository\Impl\PostRepositoryImpl;
 use App\Repository\PostRepository;
 use Illuminate\Database\Eloquent\Collection;
 
@@ -12,7 +13,7 @@ class PostService
 {
     private PostRepository $repo;
 
-    public function __construct(PostRepository $repo)
+    public function __construct(PostRepositoryImpl $repo)
     {
         $this->repo = $repo;
     }
@@ -33,5 +34,13 @@ class PostService
     {
         $post = $this->repo->update($id, $body);
         return $post;
+    }
+
+    public function store(array $all)
+    {
+    }
+
+    public function findById(int $id)
+    {
     }
 }

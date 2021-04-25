@@ -12,7 +12,7 @@ class UserTest extends TestCase
 {
     use RefreshDatabase;
 
-    public function test_create_validation_failure_password_of_7_chars()
+    public function test_store_validation_failure_password_of_7_chars()
     {
         $req = [
             'name' => 'yasu',
@@ -26,7 +26,7 @@ class UserTest extends TestCase
         $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
     }
 
-    public function test_create_validation_failure_email_wrong_format()
+    public function test_store_validation_failure_email_wrong_format()
     {
         $req = [
             'name' => 'yasu',
@@ -40,7 +40,7 @@ class UserTest extends TestCase
         $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
     }
 
-    public function test_create_validation_failure_email_already_taken()
+    public function test_store_validation_failure_email_already_taken()
     {
         User::create([
             'name' => 'yasu',

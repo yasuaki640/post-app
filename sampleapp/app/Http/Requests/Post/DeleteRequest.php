@@ -6,7 +6,7 @@ namespace App\Http\Requests\Post;
 
 use App\Http\Requests\ApiRequest;
 
-class PostRequest extends ApiRequest
+class DeleteRequest extends ApiRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -27,7 +27,6 @@ class PostRequest extends ApiRequest
     {
         return [
             'user_id' => 'required|integer',
-            'body' => 'required|string',
         ];
     }
 }
