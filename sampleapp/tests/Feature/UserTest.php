@@ -196,12 +196,12 @@ class UserTest extends TestCase
         $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
     }
 
-    public function test_success()
+    public function test_edit_failure_not_existing_id()
     {
         $user = User::factory()->create();
 
         $req = [
-            'id' => $user->id,
+            'id' => 99999999999999999999,
             'name' => 'yasu',
             'email' => 'yasu@gmail.com',
             'password' => '12345678'
@@ -212,7 +212,7 @@ class UserTest extends TestCase
         $response = $this->actingAs($user)
             ->put('/api/users', $req, $header);
 
-        $response->assertStatus(Response::HTTP_OK);
+        $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
     }
 
     public function test_destroy_failure_auth_failure()

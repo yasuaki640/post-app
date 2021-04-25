@@ -26,7 +26,7 @@ class EditRequest extends ApiRequest
     public function rules()
     {
         return [
-            'id' => 'required|integer',
+            'id' => 'required|integer|exists:users',
             'name' => 'required|string',
             'email' => 'required|email|unique:users',
             'password' => 'required|string|min:8',
