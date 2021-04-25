@@ -5,6 +5,7 @@ namespace App\Services;
 
 
 use App\Models\User;
+use App\Repository\Impl\UserRepositoryImpl;
 use App\Repository\UserRepository;
 use Illuminate\Database\Eloquent\Collection;
 use JetBrains\PhpStorm\Pure;
@@ -13,15 +14,11 @@ class UserService
 {
     private UserRepository $repo;
 
-    #[Pure] public function __construct(UserRepository $repo)
+    #[Pure] public function __construct(UserRepositoryImpl $repo)
     {
         $this->repo = $repo;
     }
 
-    /**
-     * @param array $req
-     * @return int User id
-     */
     public function store(array $req): int
     {
         return $this->repo->store($req);

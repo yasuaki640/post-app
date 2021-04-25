@@ -1,5 +1,5 @@
 <?php
-declare(strict_types=1);
+
 
 namespace App\Repository;
 
@@ -7,39 +7,15 @@ namespace App\Repository;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Collection;
 
-class UserRepository
+interface UserRepository
 {
-    public function store(array $req): int
-    {
-        return User::create([
-            'name' => $req['name'],
-            'email' => $req['email'],
-            'password' => $req['password'],
-        ])->id;
-    }
+    public function store(array $req): int;
 
-    public function findById(int $id): ?User
-    {
-        return User::find($id);
-    }
+    public function findById(int $id): ?User;
 
-    public function findAll(): Collection|array
-    {
-        return User::all();
-    }
+    public function findAll(): Collection;
 
-    public function update(array $req): void
-    {
-        User::find($req['id'])
-            ->fill([
-                'name' => $req['name'],
-                'email' => $req['email'],
-                'password' => $req['password'],
-            ])->save();
-    }
+    public function update(array $req): void;
 
-    public function destroy(int $id): void
-    {
-        User::find($id)->delete();
-    }
+    public function destroy(int $id): void;
 }
