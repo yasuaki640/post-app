@@ -37,12 +37,12 @@ class UserService
         return $this->repo->findAll();
     }
 
-    public function update(array $req)
+    public function update(array $req): void
     {
         $this->repo->update($req);
     }
 
-    public function destroy(int $id)
+    public function destroy(int $id): void
     {
         $this->repo->destroy($id);
     }

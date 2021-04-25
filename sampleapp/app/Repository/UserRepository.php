@@ -38,7 +38,8 @@ class UserRepository
             ])->save();
     }
 
-    public function destroy(int $id)
+    public function destroy(int $id): void
     {
+        User::find($id)->delete();
     }
 }
