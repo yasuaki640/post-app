@@ -19,16 +19,12 @@ class UserService
     }
 
     /**
-     * @param array $params
+     * @param array $req
      * @return int User id
      */
-    public function store(array $params): int
+    public function store(array $req): int
     {
-        return $this->repo->store(
-            $params['name'],
-            $params['email'],
-            $params['password']
-        );
+        return $this->repo->store($req);
     }
 
     public function findById(int $id): ?User

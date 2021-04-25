@@ -9,12 +9,12 @@ use Illuminate\Database\Eloquent\Collection;
 
 class UserRepository
 {
-    public function store(string $name, string $email, string $password): int
+    public function store(array $req): int
     {
         return User::create([
-            'name' => $name,
-            'email' => $email,
-            'password' => $password,
+            'name' => $req['name'],
+            'email' => $req['email'],
+            'password' => $req['password'],
         ])->id;
     }
 
@@ -30,13 +30,11 @@ class UserRepository
 
     public function update(array $req): void
     {
-        $user = User::find($req['id']);
-        $user->fill([
-            'name' => $req['name'],
-            'email' => $req['email'],
-            'password' => $req['password'],
-        ])->save();
-
-        $user->save();
+        User::find($req['id'])
+            ->fill([
+                'name' => $req['name'],
+                'email' => $req['email'],
+                'password' => $req['password'],
+            ])->save();
     }
 }
