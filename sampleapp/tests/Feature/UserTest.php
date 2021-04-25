@@ -132,10 +132,87 @@ class UserTest extends TestCase
         ];
 
         $header = ['Accept' => 'application/json'];
+
         $response = $this->actingAs($user)
             ->put('/api/users', $req, $header);
 
         $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
+    }
+
+    public function test_edit_failure_empty_name()
+    {
+        $user = User::factory()->create();
+
+        $req = [
+            'id' => $user->id,
+            'name' => '',
+            'email' => 'yasu@gmail.com',
+            'password' => '1234567'
+        ];
+
+        $header = ['Accept' => 'application/json'];
+
+        $response = $this->actingAs($user)
+            ->put('/api/users', $req, $header);
+
+        $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
+    }
+
+    public function test_edit_failure_invalid_mail_format()
+    {
+        $user = User::factory()->create();
+
+        $req = [
+            'id' => $user->id,
+            'name' => 'yasu',
+            'email' => 'yasugmail.com',
+            'password' => '1234567'
+        ];
+
+        $header = ['Accept' => 'application/json'];
+
+        $response = $this->actingAs($user)
+            ->put('/api/users', $req, $header);
+
+        $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
+    }
+
+    public function test_edit_failure_invalid_password()
+    {
+        $user = User::factory()->create();
+
+        $req = [
+            'id' => $user->id,
+            'name' => 'yasu',
+            'email' => 'yasugmail.com',
+            'password' => '1234567'
+        ];
+
+        $header = ['Accept' => 'application/json'];
+
+        $response = $this->actingAs($user)
+            ->put('/api/users', $req, $header);
+
+        $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
+    }
+
+    public function test_success()
+    {
+        $user = User::factory()->create();
+
+        $req = [
+            'id' => $user->id,
+            'name' => 'yasu',
+            'email' => 'yasu@gmail.com',
+            'password' => '12345678'
+        ];
+
+        $header = ['Accept' => 'application/json'];
+
+        $response = $this->actingAs($user)
+            ->put('/api/users', $req, $header);
+
+        $response->assertStatus(Response::HTTP_OK);
     }
 
     public function test_destroy_failure_auth_failure()
