@@ -5,9 +5,7 @@ namespace Tests\Feature\Controllers;
 use App\Http\Resources\UserResource;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Http\Response;
-use Symfony\Component\HttpFoundation\Request;
 use Tests\TestCase;
 
 class UserTest extends TestCase
