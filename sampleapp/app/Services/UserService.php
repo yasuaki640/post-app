@@ -40,4 +40,9 @@ class UserService
     {
         return $this->repo->findAll();
     }
+
+    public function update(array $req)
+    {
+        $this->repo->update($req);
+    }
 }

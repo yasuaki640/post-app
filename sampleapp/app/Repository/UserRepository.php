@@ -27,4 +27,16 @@ class UserRepository
     {
         return User::all();
     }
+
+    public function update(array $req): void
+    {
+        $user = User::find($req['id']);
+        $user->fill([
+            'name' => $req['name'],
+            'email' => $req['email'],
+            'password' => $req['password'],
+        ])->save();
+
+        $user->save();
+    }
 }

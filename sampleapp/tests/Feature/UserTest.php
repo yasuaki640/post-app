@@ -215,6 +215,30 @@ class UserTest extends TestCase
         $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
     }
 
+    public function test_edit_success()
+    {
+        $user = User::factory()->create();
+
+        $req = [
+            'id' => $user->id,
+            'name' => 'yasu',
+            'email' => 'y640@gmail.com',
+            'password' => '12345678'
+        ];
+
+        $header = ['Accept' => 'application/json'];
+
+        $response = $this->actingAs($user)
+            ->put('/api/users', $req, $header);
+
+        $response->assertStatus(Response::HTTP_NO_CONTENT);
+        $this->assertDatabaseHas('users', [
+            'id' => $user->id,
+            'name' => 'yasu',
+            'email' => 'y640@gmail.com',
+        ]);
+    }
+
     public function test_destroy_failure_auth_failure()
     {
         $response = $this->deleteJson('/api/users/1', [], ['Accept' => 'application/json']);

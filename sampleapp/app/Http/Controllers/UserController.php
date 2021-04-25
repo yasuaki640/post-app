@@ -67,11 +67,12 @@ class UserController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param EditRequest $request
-     * @return Response
+     * @return JsonResponse
      */
     public function edit(EditRequest $request)
     {
-        //
+        $this->service->update($request->toArray());
+        return \response()->json([],Response::HTTP_NO_CONTENT);
     }
 
     /**
