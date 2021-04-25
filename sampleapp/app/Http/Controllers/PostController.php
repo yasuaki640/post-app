@@ -8,6 +8,7 @@ use App\Http\Requests\Post\StoreRequest;
 use App\Http\Requests\Post\UpdateRequest;
 use App\Services\PostService;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 
 class PostController extends Controller
@@ -37,6 +38,10 @@ class PostController extends Controller
     public function store(StoreRequest $request): JsonResponse
     {
         $request->merge(['user_id' => auth()->id()]);
+
+        $id = $this->service->store($request->toArray());
+
+        return response()->json(['id' => $id], Response::HTTP_CREATED);
     }
 
     /**

@@ -25,7 +25,9 @@ class StoreRequest extends ApiRequest
     public function rules()
     {
         return [
-            'body' => 'required|string',
+            'name' => 'required|string',
+            'email' => 'required|email|unique:users',
+            'password' => 'required|string|min:8',
         ];
     }
 }

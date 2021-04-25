@@ -33,6 +33,11 @@ class PostTest extends TestCase
 
         $response = $this->actingAs($user)
             ->post('/api/posts', $req, $header);
+
         $response->assertStatus(Response::HTTP_CREATED);
+        $this->assertDatabaseHas('posts', [
+            'user_id' => $user->id,
+            'body' => 'Hello world!!!',
+        ]);
     }
 }

@@ -32,12 +32,11 @@ class PostService
 
     public function update(int $id, string $body): Post
     {
-        $post = $this->repo->update($id, $body);
-        return $post;
     }
 
-    public function store(array $all)
+    public function store(array $req): int
     {
+        return $this->repo->store($req);
     }
 
     public function findById(int $id)

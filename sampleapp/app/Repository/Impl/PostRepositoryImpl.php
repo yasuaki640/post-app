@@ -13,7 +13,10 @@ class PostRepositoryImpl implements PostRepository
 
     public function store(array $req): int
     {
-        // TODO: Implement store() method.
+        return Post::create([
+            'user_id' => $req['user_id'],
+            'body' => $req['body']
+        ])->id;
     }
 
     public function findById(int $id): ?Post
