@@ -95,7 +95,7 @@ class UserTest extends TestCase
             ->get('/api/users', ['Accept' => 'application/json']);
 
         $response->assertStatus(Response::HTTP_OK);
-        $response->assertExactJson($users->toArray());
+        $response->assertExactJson(UserResource::collection($users)->jsonSerialize());
     }
 
     public function test_show_failure_id_has_string()

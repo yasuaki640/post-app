@@ -33,7 +33,8 @@ class UserController extends Controller
     public function index()
     {
         $users = $this->service->findAll();
-        return \response()->json($users, Response::HTTP_OK);
+
+        return \response()->json(UserResource::collection($users), Response::HTTP_OK);
     }
 
     /**
@@ -59,8 +60,7 @@ class UserController extends Controller
         $id = intval($request->user_id);
         $user = $this->service->findById($id);
 
-        $data = new UserResource($user);
-        return \response()->json($data, Response::HTTP_OK);
+        return \response()->json(UserResource::make($user), Response::HTTP_OK);
     }
 
     /**
