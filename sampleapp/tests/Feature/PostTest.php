@@ -23,4 +23,16 @@ class PostTest extends TestCase
             ->post('/api/posts', $req, $header);
         $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
     }
+
+    public function test_store_success()
+    {
+        $user = User::factory()->create();
+
+        $req = ['body' => 'Hello world!!!'];
+        $header = ['Accept' => 'application/json'];
+
+        $response = $this->actingAs($user)
+            ->post('/api/posts', $req, $header);
+        $response->assertStatus(Response::HTTP_CREATED);
+    }
 }
