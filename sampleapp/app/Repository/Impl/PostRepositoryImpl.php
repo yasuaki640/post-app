@@ -4,7 +4,7 @@ declare(strict_types=1);
 namespace App\Repository\Impl;
 
 
-use App\Models\User;
+use App\Models\Post;
 use App\Repository\PostRepository;
 use Illuminate\Database\Eloquent\Collection;
 
@@ -16,7 +16,7 @@ class PostRepositoryImpl implements PostRepository
         // TODO: Implement store() method.
     }
 
-    public function findById(int $id): ?User
+    public function findById(int $id): ?Post
     {
         // TODO: Implement findById() method.
     }

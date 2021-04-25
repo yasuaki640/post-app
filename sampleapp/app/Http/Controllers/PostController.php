@@ -3,9 +3,9 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\User\DeleteRequest;
-use App\Http\Requests\User\StoreRequest;
-use App\Http\Requests\User\UpdateRequest;
+use App\Http\Requests\Post\DeleteRequest;
+use App\Http\Requests\Post\StoreRequest;
+use App\Http\Requests\Post\UpdateRequest;
 use App\Services\PostService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Routing\Controller;
@@ -36,6 +36,7 @@ class PostController extends Controller
      */
     public function store(StoreRequest $request): JsonResponse
     {
+        $request->merge(['user_id' => auth()->id()]);
     }
 
     /**
