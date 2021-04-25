@@ -41,4 +41,9 @@ class UserService
     {
         $this->repo->update($req);
     }
+
+    public function destroy(int $id)
+    {
+        $this->repo->destroy($id);
+    }
 }

@@ -37,4 +37,8 @@ class UserRepository
                 'password' => $req['password'],
             ])->save();
     }
+
+    public function destroy(int $id)
+    {
+    }
 }

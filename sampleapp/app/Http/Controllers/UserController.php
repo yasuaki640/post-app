@@ -3,8 +3,8 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\User\EditRequest;
-use App\Http\Requests\User\ShowRequest;
+use App\Http\Requests\User\UpdateRequest;
+use App\Http\Requests\User\DeleteRequest;
 use App\Http\Requests\User\StoreRequest;
 use App\Http\Resources\UserResource;
 use App\Models\User;
@@ -51,10 +51,10 @@ class UserController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param ShowRequest $request
+     * @param DeleteRequest $request
      * @return JsonResponse
      */
-    public function show(ShowRequest $request): JsonResponse
+    public function show(DeleteRequest $request): JsonResponse
     {
         $id = intval($request->user_id);
         $user = $this->service->findById($id);
@@ -63,37 +63,27 @@ class UserController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * pdate the specified resource in storage.
      *
-     * @param EditRequest $request
+     * @param UpdateRequest $request
      * @return JsonResponse
      */
-    public function edit(EditRequest $request)
+    public function update(UpdateRequest $request)
     {
         $this->service->update($request->toArray());
-        return \response()->json([],Response::HTTP_NO_CONTENT);
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param Request $request
-     * @param User $user
-     * @return Response
-     */
-    public function update(Request $request, User $user)
-    {
-        //
+        return \response()->json([], Response::HTTP_NO_CONTENT);
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param User $user
-     * @return Response
+     * @param DeleteRequest $request
+     * @return JsonResponse
      */
-    public function destroy(User $user)
+    public function destroy(DeleteRequest $request): JsonResponse
     {
-        //
+        $id = intval($request->user_id);
+        $this->service->destroy($id);
+        return \response()->json([], Response::HTTP_NO_CONTENT);
     }
 }
