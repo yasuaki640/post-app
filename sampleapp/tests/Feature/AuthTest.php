@@ -21,14 +21,12 @@ class AuthTest extends TestCase
         $header = ['Accept' => 'application/json'];
 
         $response = $this->post('/api/login', $req, $header);
-        $response->assertStatus(Response::HTTP_UNAUTHORIZED);
+        $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
     }
 
     public function test_auth_failure_no_email()
     {
         $req = [
-            'name' => 'yasu',
-            'email' => 'yasu@gmail.com',
             'password' => '12345678'
         ];
 
