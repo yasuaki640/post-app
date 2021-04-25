@@ -23,7 +23,6 @@ class UserController extends Controller
         $this->service = $service;
     }
 
-
     /**
      * Display a listing of the resource.
      *
@@ -63,7 +62,7 @@ class UserController extends Controller
     }
 
     /**
-     * pdate the specified resource in storage.
+     * Update the specified resource in storage.
      *
      * @param UpdateRequest $request
      * @return JsonResponse
