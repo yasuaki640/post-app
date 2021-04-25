@@ -272,7 +272,7 @@ class UserTest extends TestCase
             ->delete('/api/users/' . $user->id, [], $header);
 
         $response->assertStatus(Response::HTTP_NO_CONTENT);
-        $this->assertDatabaseMissing('users', ['id' => $user->id,]);
+        $this->assertSoftDeleted($user);
     }
 
 }
