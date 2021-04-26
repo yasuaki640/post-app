@@ -31,6 +31,7 @@ Route::middleware('auth:api')->group(function () {
 
     Route::prefix('/posts')->group(function () {
         Route::get('', [PostController::class, 'index']);
+        Route::get('/{post_id}', [PostController::class, 'show']);
         Route::post('', [PostController::class, 'store']);
     });
 });

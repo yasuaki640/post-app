@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace App\Http\Controllers;
 
 use App\Http\Requests\Post\DeleteRequest;
+use App\Http\Requests\Post\ShowRequest;
 use App\Http\Requests\Post\StoreRequest;
 use App\Http\Requests\Post\UpdateRequest;
 use App\Http\Resources\PostResource;
@@ -51,10 +52,10 @@ class PostController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param DeleteRequest $request
+     * @param ShowRequest $request
      * @return JsonResponse
      */
-    public function show(DeleteRequest $request): JsonResponse
+    public function show(ShowRequest $request): JsonResponse
     {
     }
 

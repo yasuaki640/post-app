@@ -56,4 +56,14 @@ class PostTest extends TestCase
         $expected = PostResource::collection($posts)->jsonSerialize();
         $response->assertExactJson($expected);
     }
+
+    public function test_show_failure_validation_failure_string_id()
+    {
+        $user = User::factory()->create();
+
+        $response = $this->actingAs($user)
+            ->get('/api/posts/1e2e', ['Accept' => 'application/json']);
+
+        $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
+    }
 }
