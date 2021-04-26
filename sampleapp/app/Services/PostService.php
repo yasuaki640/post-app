@@ -24,7 +24,7 @@ class PostService
         return $id;
     }
 
-    public function findAll(): Collection
+    public function findAll(): Collection|array
     {
         return $this->repo->findAll();
     }

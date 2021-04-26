@@ -26,7 +26,7 @@ class PostRepositoryImpl implements PostRepository
 
     public function findAll(): Collection
     {
-        // TODO: Implement findAll() method.
+        return Post::all();
     }
 
     public function update(array $req): void

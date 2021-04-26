@@ -51,9 +51,9 @@ class PostTest extends TestCase
         $response = $this->actingAs($user)
             ->get('/api/posts', ['Accept' => 'application/json']);
 
-        $response->assertCreated();
+        $response->assertOk();
 
-        //$expected = PostResource::collection($posts)->jsonSerialize();
-        //$response->assertExactJson($expected);
+        $expected = PostResource::collection($posts)->jsonSerialize();
+        $response->assertExactJson($expected);
     }
 }
