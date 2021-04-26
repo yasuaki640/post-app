@@ -66,4 +66,15 @@ class PostTest extends TestCase
 
         $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
     }
+
+    public function test_show_success()
+    {
+        $user = User::factory()->create();
+        $post = Post::factory()->create();
+
+        $response = $this->actingAs($user)
+            ->get('/api/posts/' . $post->id, ['Accept' => 'application/json']);
+
+        $response->assertOk();
+    }
 }

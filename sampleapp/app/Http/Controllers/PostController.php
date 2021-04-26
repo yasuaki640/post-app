@@ -57,6 +57,7 @@ class PostController extends Controller
      */
     public function show(ShowRequest $request): JsonResponse
     {
+        return response()->json([], Response::HTTP_OK);
     }
 
     /**
