@@ -72,7 +72,7 @@ class UserTest extends TestCase
 
         $response = $this->post('/api/users', $req, $header);
 
-        $response->assertStatus(Response::HTTP_CREATED);
+        $response->assertCreated();
         $this->assertDatabaseHas('users', [
             'name' => 'yasu',
             'email' => 'yasu@gmail.com',
@@ -82,7 +82,7 @@ class UserTest extends TestCase
     public function test_index_failure_auth_failure()
     {
         $response = $this->getJson('/api/users', ['Accept' => 'application/json']);
-        $response->assertStatus(Response::HTTP_UNAUTHORIZED);
+        $response->assertUnauthorized();
     }
 
     public function test_index_success()
@@ -92,7 +92,7 @@ class UserTest extends TestCase
         $response = $this->actingAs($users->first())
             ->get('/api/users', ['Accept' => 'application/json']);
 
-        $response->assertStatus(Response::HTTP_OK);
+        $response->assertOk();
         $response->assertExactJson(UserResource::collection($users)->jsonSerialize());
     }
 
@@ -113,7 +113,7 @@ class UserTest extends TestCase
         $response = $this->actingAs($user)
             ->get('/api/users/' . $user->id, ['Accept' => 'application/json']);
 
-        $response->assertStatus(Response::HTTP_OK);
+        $response->assertOk();
 
         $expected = UserResource::make($user)->jsonSerialize();
         $response->assertExactJson($expected);
@@ -240,7 +240,7 @@ class UserTest extends TestCase
     public function test_destroy_failure_auth_failure()
     {
         $response = $this->deleteJson('/api/users/1', [], ['Accept' => 'application/json']);
-        $response->assertStatus(Response::HTTP_UNAUTHORIZED);
+        $response->assertUnauthorized();
     }
 
     public function test_destroy_failure_not_existing_id()
@@ -271,7 +271,7 @@ class UserTest extends TestCase
         $response = $this->actingAs($user)
             ->delete('/api/users/' . $user->id, [], $header);
 
-        $response->assertStatus(Response::HTTP_NO_CONTENT);
+        $response->assertNoContent();
         $this->assertSoftDeleted($user);
     }
 

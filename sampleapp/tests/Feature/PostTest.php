@@ -34,10 +34,21 @@ class PostTest extends TestCase
         $response = $this->actingAs($user)
             ->post('/api/posts', $req, $header);
 
-        $response->assertStatus(Response::HTTP_CREATED);
+        $response->assertCreated();
         $this->assertDatabaseHas('posts', [
             'user_id' => $user->id,
             'body' => 'Hello world!!!',
         ]);
     }
+
+    //public function test_index_success()
+    //{
+    //    $user = User::factory()->count(3)->create();
+    //
+    //    $response = $this->actingAs($user)
+    //        ->get('/api/posts', ['Accept' => 'application/json']);
+    //
+    //    $response->assertOk();
+    //    $response->assertExactJson(Po);
+    //}
 }
