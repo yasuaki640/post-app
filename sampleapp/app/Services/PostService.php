@@ -26,8 +26,7 @@ class PostService
 
     public function findAll(): Collection
     {
-        $posts = $this->repo->findAll();
-        return $posts;
+        return $this->repo->findAll();
     }
 
     public function update(int $id, string $body): Post

@@ -3,6 +3,8 @@ declare(strict_types=1);
 
 namespace Tests\Feature;
 
+use App\Http\Resources\PostResource;
+use App\Models\Post;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Http\Response;
@@ -41,14 +43,17 @@ class PostTest extends TestCase
         ]);
     }
 
-    //public function test_index_success()
-    //{
-    //    $user = User::factory()->count(3)->create();
-    //
-    //    $response = $this->actingAs($user)
-    //        ->get('/api/posts', ['Accept' => 'application/json']);
-    //
-    //    $response->assertOk();
-    //    $response->assertExactJson(Po);
-    //}
+    public function test_index_success()
+    {
+        $user = User::factory()->create();
+        $posts = Post::factory()->count(3)->create();
+
+        $response = $this->actingAs($user)
+            ->get('/api/posts', ['Accept' => 'application/json']);
+
+        $response->assertCreated();
+
+        //$expected = PostResource::collection($posts)->jsonSerialize();
+        //$response->assertExactJson($expected);
+    }
 }

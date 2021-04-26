@@ -6,6 +6,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\Post\DeleteRequest;
 use App\Http\Requests\Post\StoreRequest;
 use App\Http\Requests\Post\UpdateRequest;
+use App\Models\Post;
 use App\Services\PostService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Response;
@@ -27,6 +28,7 @@ class PostController extends Controller
      */
     public function index()
     {
+        return response()->json([], Response::HTTP_CREATED);
     }
 
     /**
