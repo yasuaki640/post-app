@@ -21,7 +21,7 @@ class PostRepositoryImpl implements PostRepository
 
     public function findById(int $id): ?Post
     {
-        // TODO: Implement findById() method.
+        return Post::find($id);
     }
 
     public function findAll(): Collection

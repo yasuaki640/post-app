@@ -33,6 +33,7 @@ Route::middleware('auth:api')->group(function () {
         Route::get('', [PostController::class, 'index']);
         Route::get('/{post_id}', [PostController::class, 'show']);
         Route::post('', [PostController::class, 'store']);
+        Route::put('', [PostController::class, 'update']);
     });
 });
 

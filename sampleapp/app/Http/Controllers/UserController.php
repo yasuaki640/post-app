@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\User\ShowRequest;
 use App\Http\Requests\User\UpdateRequest;
 use App\Http\Requests\User\DeleteRequest;
 use App\Http\Requests\User\StoreRequest;
@@ -50,10 +51,10 @@ class UserController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param DeleteRequest $request
+     * @param ShowRequest $request
      * @return JsonResponse
      */
-    public function show(DeleteRequest $request): JsonResponse
+    public function show(ShowRequest $request): JsonResponse
     {
         $id = intval($request->user_id);
         $user = $this->service->findById($id);

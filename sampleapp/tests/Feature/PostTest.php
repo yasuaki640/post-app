@@ -6,6 +6,7 @@ namespace Tests\Feature;
 use App\Http\Resources\PostResource;
 use App\Models\Post;
 use App\Models\User;
+use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Http\Response;
 use Tests\TestCase;
@@ -76,5 +77,21 @@ class PostTest extends TestCase
             ->get('/api/posts/' . $post->id, ['Accept' => 'application/json']);
 
         $response->assertOk();
+
+        $expected = PostResource::make($post)->jsonSerialize();
+        $response->assertExactJson($expected);
+    }
+
+    public function test_update_failure_validation_failure_no_id_exists()
+    {
+        $user = User::factory()->create();
+
+        $req = ['body' => 'Hello world!!!!'];
+        $header = ['Accept' => 'application/json'];
+
+        $response = $this->actingAs($user)
+            ->put('/api/posts', $req, $header);
+
+        $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
     }
 }

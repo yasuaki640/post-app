@@ -38,7 +38,8 @@ class PostService
         return $this->repo->store($req);
     }
 
-    public function findById(int $id)
+    public function findById(int $id): ?Post
     {
+        return $this->repo->findById($id);
     }
 }

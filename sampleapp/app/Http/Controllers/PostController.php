@@ -57,7 +57,10 @@ class PostController extends Controller
      */
     public function show(ShowRequest $request): JsonResponse
     {
-        return response()->json([], Response::HTTP_OK);
+        $id = intval($request->post_id);
+        $post = $this->service->findById($id);
+
+        return response()->json(PostResource::make($post), Response::HTTP_OK);
     }
 
     /**
