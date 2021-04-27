@@ -26,7 +26,7 @@ class UpdateRequest extends ApiRequest
     public function rules()
     {
         return [
-            'id' => 'required|integer',
+            'id' => 'required|integer|exists:users',
             'body' => 'required|string',
         ];
     }

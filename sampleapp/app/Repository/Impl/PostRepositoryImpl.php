@@ -31,7 +31,9 @@ class PostRepositoryImpl implements PostRepository
 
     public function update(array $req): void
     {
-        // TODO: Implement update() method.
+        Post::find($req['id'])
+            ->fill(['body' => $req['body']])
+            ->save();
     }
 
     public function destroy(int $id): void

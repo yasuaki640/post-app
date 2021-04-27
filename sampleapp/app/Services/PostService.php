@@ -20,8 +20,7 @@ class PostService
 
     public function create(int $user_id, string $body): int
     {
-        $id = $this->repo->create($user_id, $body);
-        return $id;
+        return $this->repo->create($user_id, $body);
     }
 
     public function findAll(): Collection|array
@@ -29,8 +28,9 @@ class PostService
         return $this->repo->findAll();
     }
 
-    public function update(int $id, string $body): Post
+    public function update(array $req): void
     {
+        $this->repo->update($req);
     }
 
     public function store(array $req): int

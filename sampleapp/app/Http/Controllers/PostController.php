@@ -69,8 +69,10 @@ class PostController extends Controller
      * @param UpdateRequest $request
      * @return JsonResponse
      */
-    public function update(UpdateRequest $request)
+    public function update(UpdateRequest $request): JsonResponse
     {
+        $request->merge(['user_id' => auth()->id()]);
+        $this->service->update($request->toArray());
     }
 
     /**
