@@ -151,4 +151,17 @@ class PostTest extends TestCase
             'body' => 'fixed!!!'
         ]);
     }
+
+    public function test_destroy_failure_validation_failure_id_has_string()
+    {
+        $user = User::factory()->create();
+        Post::factory()->create();
+
+        $header = ['Accept' => 'application/json'];
+
+        $response = $this->actingAs($user)
+            ->delete('/api/posts/1e', [], $header);
+
+        $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
+    }
 }
