@@ -130,41 +130,6 @@ class PostTest extends TestCase
         $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
     }
 
-    public function test_update_failure_validation_failure_no_user_id()
-    {
-        $user = User::factory()->create();
-        $post = Post::factory()->create();
-
-        $req = [
-            'id' => $post->id,
-            'body' => $post->body
-        ];
-        $header = ['Accept' => 'application/json'];
-
-        $response = $this->actingAs($user)
-            ->put('/api/posts', $req, $header);
-
-        $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
-    }
-
-    public function test_update_failure_validation_failure_not_existing_user_id()
-    {
-        $user = User::factory()->create();
-        $post = Post::factory()->create();
-
-        $req = [
-            'id' => $post->id,
-            'user_id' => 999999999999,
-            'body' => $post->body
-        ];
-        $header = ['Accept' => 'application/json'];
-
-        $response = $this->actingAs($user)
-            ->put('/api/posts', $req, $header);
-
-        $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
-    }
-
     public function test_update_success()
     {
         $user = User::factory()->create();
@@ -172,7 +137,6 @@ class PostTest extends TestCase
 
         $req = [
             'id' => $post->id,
-            'user_id' => $post->user_id,
             'body' => 'fixed!!!'
         ];
         $header = ['Accept' => 'application/json'];
