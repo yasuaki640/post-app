@@ -6,7 +6,6 @@ namespace Tests\Feature;
 use App\Http\Resources\PostResource;
 use App\Models\Post;
 use App\Models\User;
-use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Http\Response;
 use Tests\TestCase;
@@ -98,10 +97,11 @@ class PostTest extends TestCase
     public function test_update_failure_validation_failure_not_existing_id()
     {
         $user = User::factory()->create();
-        Post::factory()->create();
+        $post = Post::factory()->create();
 
         $req = [
             'id' => 99999999999,
+            'user_id' => $post->user_id,
             'body' => 'Hello world!!!'
         ];
         $header = ['Accept' => 'application/json'];
@@ -110,5 +110,81 @@ class PostTest extends TestCase
             ->put('/api/posts', $req, $header);
 
         $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
+    }
+
+    public function test_update_failure_validation_failure_no_body()
+    {
+        $user = User::factory()->create();
+        $post = Post::factory()->create();
+
+        $req = [
+            'id' => $post->id,
+            'user_id' => $post->user_id,
+            'body' => ''
+        ];
+        $header = ['Accept' => 'application/json'];
+
+        $response = $this->actingAs($user)
+            ->put('/api/posts', $req, $header);
+
+        $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
+    }
+
+    public function test_update_failure_validation_failure_no_user_id()
+    {
+        $user = User::factory()->create();
+        $post = Post::factory()->create();
+
+        $req = [
+            'id' => $post->id,
+            'body' => $post->body
+        ];
+        $header = ['Accept' => 'application/json'];
+
+        $response = $this->actingAs($user)
+            ->put('/api/posts', $req, $header);
+
+        $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
+    }
+
+    public function test_update_failure_validation_failure_not_existing_user_id()
+    {
+        $user = User::factory()->create();
+        $post = Post::factory()->create();
+
+        $req = [
+            'id' => $post->id,
+            'user_id' => 999999999999,
+            'body' => $post->body
+        ];
+        $header = ['Accept' => 'application/json'];
+
+        $response = $this->actingAs($user)
+            ->put('/api/posts', $req, $header);
+
+        $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
+    }
+
+    public function test_update_success()
+    {
+        $user = User::factory()->create();
+        $post = Post::factory()->create();
+
+        $req = [
+            'id' => $post->id,
+            'user_id' => $post->user_id,
+            'body' => 'fixed!!!'
+        ];
+        $header = ['Accept' => 'application/json'];
+
+        $response = $this->actingAs($user)
+            ->put('/api/posts', $req, $header);
+
+        $response->assertStatus(Response::HTTP_NO_CONTENT);
+        $this->assertDatabaseHas('posts', [
+            'id' => $post->id,
+            'user_id' => $post->user_id,
+            'body' => 'fixed!!!'
+        ]);
     }
 }

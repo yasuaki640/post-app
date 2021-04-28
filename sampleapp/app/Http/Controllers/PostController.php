@@ -73,6 +73,8 @@ class PostController extends Controller
     {
         $request->merge(['user_id' => auth()->id()]);
         $this->service->update($request->toArray());
+
+        return \response()->json([],Response::HTTP_NO_CONTENT);
     }
 
     /**
