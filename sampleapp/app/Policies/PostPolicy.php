@@ -18,7 +18,7 @@ class PostPolicy
      * @param \App\Models\Post $post
      * @return bool
      */
-    public function delete(User $user, Post $post): bool
+    public function destroy(User $user, Post $post): bool
     {
         return $user->id === $post->user_id;
     }

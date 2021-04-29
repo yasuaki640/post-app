@@ -57,8 +57,7 @@ class PostController extends Controller
      */
     public function show(ShowRequest $request): JsonResponse
     {
-        $id = intval($request->post_id);
-        $post = $this->service->findById($id);
+        $post = $this->service->findById(intval($request->post_id));
 
         return response()->json(PostResource::make($post), Response::HTTP_OK);
     }
@@ -74,7 +73,7 @@ class PostController extends Controller
         $request->merge(['user_id' => auth()->id()]);
         $this->service->update($request->toArray());
 
-        return response()->json([],Response::HTTP_NO_CONTENT);
+        return response()->json([], Response::HTTP_NO_CONTENT);
     }
 
     /**
@@ -85,7 +84,11 @@ class PostController extends Controller
      */
     public function destroy(DeleteRequest $request): JsonResponse
     {
-        $request->merge(['user_id' => auth()->id()]);
-        $this->service->destroy($request->toArray());
+        if ($request->user()->cannot('destroy', Post::find($request->post_id))) {
+            abort(403);
+        }
+        $this->service->destroy(intval($request->post_id));
+
+        return response()->json([], Response::HTTP_NO_CONTENT);
     }
 }

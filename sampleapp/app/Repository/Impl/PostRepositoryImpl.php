@@ -38,6 +38,6 @@ class PostRepositoryImpl implements PostRepository
 
     public function destroy(int $id): void
     {
-        // TODO: Implement destroy() method.
+        Post::destroy($id);
     }
 }

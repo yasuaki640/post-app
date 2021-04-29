@@ -154,8 +154,8 @@ class PostTest extends TestCase
 
     public function test_destroy_failure_validation_failure_id_has_string()
     {
-        $user = User::factory()->create();
-        Post::factory()->create();
+        $post = Post::factory()->create();
+        $user = User::find($post->user_id);
 
         $header = ['Accept' => 'application/json'];
 
@@ -167,8 +167,8 @@ class PostTest extends TestCase
 
     public function test_destroy_failure_not_existing_id()
     {
-        $user = User::factory()->create();
         $post = Post::factory()->create();
+        $user = User::find($post->user_id);
 
         $header = ['Accept' => 'application/json'];
 
@@ -188,6 +188,20 @@ class PostTest extends TestCase
         $response = $this->actingAs($user)
             ->delete('/api/posts/' . $post->id, [], $header);
 
-        $response->assertUnauthorized();
+        $response->assertForbidden();
+    }
+
+    public function test_destroy_success()
+    {
+        $post = Post::factory()->create();
+        $user = User::find($post->user_id);
+
+        $header = ['Accept' => 'application/json'];
+
+        $response = $this->actingAs($user)
+            ->delete('/api/posts/' . $post->id, [], $header);
+
+        $response->assertNoContent();
+        $this->assertSoftDeleted('posts', $post->toArray());
     }
 }
