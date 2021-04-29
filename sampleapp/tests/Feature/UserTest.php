@@ -119,7 +119,7 @@ class UserTest extends TestCase
         $response->assertExactJson($expected);
     }
 
-    public function test_edit_failure_no_id()
+    public function test_update_failure_no_id()
     {
         $user = User::factory()->create();
 
@@ -132,12 +132,12 @@ class UserTest extends TestCase
         $header = ['Accept' => 'application/json'];
 
         $response = $this->actingAs($user)
-            ->put('/api/users', $req, $header);
+            ->put('/api/users/me', $req, $header);
 
         $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
     }
 
-    public function test_edit_failure_empty_name()
+    public function test_update_failure_empty_name()
     {
         $user = User::factory()->create();
 
@@ -151,12 +151,12 @@ class UserTest extends TestCase
         $header = ['Accept' => 'application/json'];
 
         $response = $this->actingAs($user)
-            ->put('/api/users', $req, $header);
+            ->put('/api/users/me', $req, $header);
 
         $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
     }
 
-    public function test_edit_failure_invalid_mail_format()
+    public function test_update_failure_invalid_mail_format()
     {
         $user = User::factory()->create();
 
@@ -170,12 +170,12 @@ class UserTest extends TestCase
         $header = ['Accept' => 'application/json'];
 
         $response = $this->actingAs($user)
-            ->put('/api/users', $req, $header);
+            ->put('/api/users/me', $req, $header);
 
         $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
     }
 
-    public function test_edit_failure_invalid_password()
+    public function test_update_failure_invalid_password()
     {
         $user = User::factory()->create();
 
@@ -189,36 +189,16 @@ class UserTest extends TestCase
         $header = ['Accept' => 'application/json'];
 
         $response = $this->actingAs($user)
-            ->put('/api/users', $req, $header);
+            ->put('/api/users/me', $req, $header);
 
         $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
     }
 
-    public function test_edit_failure_not_existing_id()
+    public function test_update_success()
     {
         $user = User::factory()->create();
 
         $req = [
-            'id' => 99999999999999999999,
-            'name' => 'yasu',
-            'email' => 'yasu@gmail.com',
-            'password' => '12345678'
-        ];
-
-        $header = ['Accept' => 'application/json'];
-
-        $response = $this->actingAs($user)
-            ->put('/api/users', $req, $header);
-
-        $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
-    }
-
-    public function test_edit_success()
-    {
-        $user = User::factory()->create();
-
-        $req = [
-            'id' => $user->id,
             'name' => 'yasu',
             'email' => 'y640@gmail.com',
             'password' => '12345678'
@@ -227,7 +207,7 @@ class UserTest extends TestCase
         $header = ['Accept' => 'application/json'];
 
         $response = $this->actingAs($user)
-            ->put('/api/users', $req, $header);
+            ->put('/api/users/me', $req, $header);
 
         $response->assertStatus(Response::HTTP_NO_CONTENT);
         $this->assertDatabaseHas('users', [

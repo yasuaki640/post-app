@@ -45,6 +45,7 @@ class UserController extends Controller
 
     public function update(UpdateRequest $request): JsonResponse
     {
+        $request->merge(['id' => auth()->id()]);
         $this->service->update($request->toArray());
         return \response()->json([], Response::HTTP_NO_CONTENT);
     }
