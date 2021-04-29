@@ -5,15 +5,26 @@
       <ul>
         <li>
           <label for="name">name :
-            <input id="name" type="text">
+            <input id="name" v-model="name" type="text">
           </label>
         </li>
         <li>
-          <label for="email">password :
-            <input id="email" type="email">
+          <label for="email">email :
+            <input id="email" v-model="email" type="email">
           </label>
         </li>
       </ul>
     </form>
   </div>
 </template>
+
+<script>
+export default {
+  data() {
+    return {
+      name: '',
+      email: ''
+    }
+  }
+}
+</script>
