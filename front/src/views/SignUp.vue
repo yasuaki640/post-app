@@ -1,7 +1,7 @@
 <template>
   <div class="about">
     <h1>Enter your account info</h1>
-    <form>
+    <form @submit="sendUserInfo">
       <ul>
         <li>
           <label for="name">name :
@@ -11,6 +11,11 @@
         <li>
           <label for="email">email :
             <input id="email" v-model="email" type="email">
+          </label>
+        </li>
+        <li>
+          <label for="submit">
+            <input id="submit" type="submit" value="Sign up">
           </label>
         </li>
       </ul>
@@ -24,6 +29,11 @@ export default {
     return {
       name: '',
       email: ''
+    }
+  },
+  methods: {
+    sendUserInfo: function () {
+      alert(this.name + this.email)
     }
   }
 }
