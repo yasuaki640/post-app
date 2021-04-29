@@ -11,13 +11,11 @@ class PostPolicy
 {
     use HandlesAuthorization;
 
-    /**
-     * Determine whether the user can delete the model.
-     *
-     * @param \App\Models\User $user
-     * @param \App\Models\Post $post
-     * @return bool
-     */
+    public function update(User $user, Post $post): bool
+    {
+        return $user->id === $post->user_id;
+    }
+
     public function destroy(User $user, Post $post): bool
     {
         return $user->id === $post->user_id;

@@ -47,6 +47,9 @@ class PostController extends Controller
 
     public function update(UpdateRequest $request): JsonResponse
     {
+        if ($request->user()->cannot('update', Post::find($request->id))) {
+            abort(403);
+        }
         $request->merge(['user_id' => auth()->id()]);
         $this->service->update($request->toArray());
 

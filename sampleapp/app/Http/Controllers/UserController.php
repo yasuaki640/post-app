@@ -22,7 +22,7 @@ class UserController extends Controller
         $this->service = $service;
     }
 
-    public function index()
+    public function index(): JsonResponse
     {
         $users = $this->service->findAll();
 
@@ -43,7 +43,7 @@ class UserController extends Controller
         return \response()->json(UserResource::make($user), Response::HTTP_OK);
     }
 
-    public function update(UpdateRequest $request)
+    public function update(UpdateRequest $request): JsonResponse
     {
         $this->service->update($request->toArray());
         return \response()->json([], Response::HTTP_NO_CONTENT);

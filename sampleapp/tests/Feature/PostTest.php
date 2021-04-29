@@ -96,8 +96,8 @@ class PostTest extends TestCase
 
     public function test_update_failure_validation_failure_not_existing_id()
     {
-        $user = User::factory()->create();
         $post = Post::factory()->create();
+        $user = User::find($post->user_id);
 
         $req = [
             'id' => 99999999999,
@@ -114,8 +114,8 @@ class PostTest extends TestCase
 
     public function test_update_failure_validation_failure_no_body()
     {
-        $user = User::factory()->create();
         $post = Post::factory()->create();
+        $user = User::find($post->user_id);
 
         $req = [
             'id' => $post->id,
@@ -132,8 +132,8 @@ class PostTest extends TestCase
 
     public function test_update_success()
     {
-        $user = User::factory()->create();
         $post = Post::factory()->create();
+        $user = User::find($post->user_id);
 
         $req = [
             'id' => $post->id,
