@@ -1,5 +1,5 @@
 <template>
-  <div class="hello">
+  <div class="login">
     <h1>✝✝✝殺伐とした開発環境に突然のPost App✝✝✝</h1>
   </div>
 </template>
@@ -7,9 +7,6 @@
 <script>
 export default {
   name: 'Login',
-  props: {
-    msg: String
-  }
 }
 </script>
 

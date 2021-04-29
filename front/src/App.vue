@@ -1,6 +1,7 @@
 <template>
   <div id="nav">
     <router-link to="/">Home</router-link>
+    <router-link to="/sign-up">Sign up</router-link>
   </div>
   <router-view/>
 </template>
@@ -19,6 +20,7 @@
 }
 
 #nav a {
+  margin: 0.8rem;
   font-weight: bold;
   color: #2c3e50;
 }
