@@ -164,4 +164,17 @@ class PostTest extends TestCase
 
         $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
     }
+
+    public function test_destroy_failure_not_existing_id()
+    {
+        $user = User::factory()->create();
+        $post = Post::factory()->create();
+
+        $header = ['Accept' => 'application/json'];
+
+        $response = $this->actingAs($user)
+            ->delete('/api/posts/99999999', [], $header);
+
+        $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
+    }
 }

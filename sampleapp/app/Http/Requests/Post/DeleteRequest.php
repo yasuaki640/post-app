@@ -26,7 +26,7 @@ class DeleteRequest extends ApiRequest
     public function rules()
     {
         return [
-            'id' => 'required|integer'
+            'post_id' => 'required|integer|exists:posts,id'
         ];
     }
 }
