@@ -85,5 +85,7 @@ class PostController extends Controller
      */
     public function destroy(DeleteRequest $request): JsonResponse
     {
+        $request->merge(['user_id' => auth()->id()]);
+        $this->service->destroy($request->toArray());
     }
 }

@@ -42,4 +42,14 @@ class PostService
     {
         return $this->repo->findById($id);
     }
+
+    public function destroy(array $req)
+    {
+        $post = $this->repo->findById($req['id']);
+        if ($post->user_id !== $req['user_id']) {
+            return false;
+        }
+
+        $this->repo->destroy();
+    }
 }
