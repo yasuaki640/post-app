@@ -38,7 +38,7 @@ class PostService
         return $this->repo->findById($id);
     }
 
-    public function destroy(int $id)
+    public function destroy(int $id): void
     {
         $this->repo->destroy($id);
     }

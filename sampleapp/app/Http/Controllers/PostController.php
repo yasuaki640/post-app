@@ -23,23 +23,12 @@ class PostController extends Controller
         $this->service = $service;
     }
 
-    /**
-     * Display a listing of the resource.
-     *
-     * @return JsonResponse
-     */
     public function index(): JsonResponse
     {
         $posts = $this->service->findAll();
         return response()->json(PostResource::collection($posts), Response::HTTP_OK);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param StoreRequest $request
-     * @return JsonResponse
-     */
     public function store(StoreRequest $request): JsonResponse
     {
         $request->merge(['user_id' => auth()->id()]);
@@ -49,12 +38,6 @@ class PostController extends Controller
         return response()->json(['id' => $id], Response::HTTP_CREATED);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param ShowRequest $request
-     * @return JsonResponse
-     */
     public function show(ShowRequest $request): JsonResponse
     {
         $post = $this->service->findById(intval($request->post_id));
@@ -62,12 +45,6 @@ class PostController extends Controller
         return response()->json(PostResource::make($post), Response::HTTP_OK);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param UpdateRequest $request
-     * @return JsonResponse
-     */
     public function update(UpdateRequest $request): JsonResponse
     {
         $request->merge(['user_id' => auth()->id()]);
@@ -76,12 +53,6 @@ class PostController extends Controller
         return response()->json([], Response::HTTP_NO_CONTENT);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param DeleteRequest $request
-     * @return JsonResponse
-     */
     public function destroy(DeleteRequest $request): JsonResponse
     {
         if ($request->user()->cannot('destroy', Post::find($request->post_id))) {
