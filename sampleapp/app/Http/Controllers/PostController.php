@@ -28,7 +28,7 @@ class PostController extends Controller
      *
      * @return JsonResponse
      */
-    public function index()
+    public function index(): JsonResponse
     {
         $posts = $this->service->findAll();
         return response()->json(PostResource::collection($posts), Response::HTTP_OK);

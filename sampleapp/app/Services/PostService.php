@@ -18,11 +18,6 @@ class PostService
         $this->repo = $repo;
     }
 
-    public function create(int $user_id, string $body): int
-    {
-        return $this->repo->create($user_id, $body);
-    }
-
     public function findAll(): Collection|array
     {
         return $this->repo->findAll();
