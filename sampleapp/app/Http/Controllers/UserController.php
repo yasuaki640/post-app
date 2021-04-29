@@ -49,10 +49,9 @@ class UserController extends Controller
         return \response()->json([], Response::HTTP_NO_CONTENT);
     }
 
-    public function destroy(DeleteRequest $request): JsonResponse
+    public function destroy(): JsonResponse
     {
-        $id = intval($request->user_id);
-        $this->service->destroy($id);
+        $this->service->destroy(auth()->id());
         return \response()->json([], Response::HTTP_NO_CONTENT);
     }
 }

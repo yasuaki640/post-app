@@ -26,7 +26,7 @@ Route::middleware('auth:api')->group(function () {
         Route::get('', [UserController::class, 'index']);
         Route::get('/{user_id}', [UserController::class, 'show']);
         Route::put('', [UserController::class, 'update']);
-        Route::delete('/{user_id}', [UserController::class, 'destroy']);
+        Route::delete('/me', [UserController::class, 'destroy']);
     });
 
     Route::prefix('/posts')->group(function () {

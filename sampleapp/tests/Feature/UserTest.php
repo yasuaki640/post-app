@@ -239,27 +239,8 @@ class UserTest extends TestCase
 
     public function test_destroy_failure_auth_failure()
     {
-        $response = $this->deleteJson('/api/users/1', [], ['Accept' => 'application/json']);
+        $response = $this->deleteJson('/api/users/me', [], ['Accept' => 'application/json']);
         $response->assertUnauthorized();
-    }
-
-    public function test_destroy_failure_not_existing_id()
-    {
-        $user = User::factory()->create();
-
-        $req = [
-            'id' => 99999999999999999999,
-            'name' => 'yasu',
-            'email' => 'yasu@gmail.com',
-            'password' => '12345678'
-        ];
-
-        $header = ['Accept' => 'application/json'];
-
-        $response = $this->actingAs($user)
-            ->delete('/api/users/1e', $req, $header);
-
-        $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
     }
 
     public function test_destroy_success()
@@ -269,7 +250,7 @@ class UserTest extends TestCase
         $header = ['Accept' => 'application/json'];
 
         $response = $this->actingAs($user)
-            ->delete('/api/users/' . $user->id, [], $header);
+            ->delete('/api/users/me', [], $header);
 
         $response->assertNoContent();
         $this->assertSoftDeleted($user);
