@@ -18,7 +18,6 @@
             <input id="submit" type="submit" value="Sign up">
           </label>
         </li>
-        <li>{{ testData }}</li>
       </ul>
     </form>
   </div>
@@ -31,7 +30,6 @@ export default {
     return {
       name: '',
       email: '',
-      testData: {}
     }
   },
   mounted() {
