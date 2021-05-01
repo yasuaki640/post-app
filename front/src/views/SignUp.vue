@@ -32,15 +32,10 @@ export default {
       email: '',
     }
   },
-  mounted() {
-    this.axios.get('https://jsonplaceholder.typicode.com/todos/1')
-        .then(res => {
-          this.testData = res
-        })
-  },
   methods: {
-    register: function () {
-      alert(this.name + this.email)
+    register: function (e) {
+      e.preventDefault()
+      
       this.axios.post('/api/users', {
         name: this.name,
         email: this.email
