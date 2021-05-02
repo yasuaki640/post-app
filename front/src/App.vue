@@ -7,9 +7,6 @@
 </template>
 
 <style>
-#app {
-
-}
 
 #nav {
   font-family: Avenir, Helvetica, Arial, sans-serif;
