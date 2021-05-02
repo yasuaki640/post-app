@@ -14,6 +14,11 @@
           </label>
         </li>
         <li>
+          <label for="password">password :
+            <input id="password" v-model="password" type="password">
+          </label>
+        </li>
+        <li>
           <label for="submit">
             <input id="submit" type="submit" value="Sign up">
           </label>
@@ -30,15 +35,17 @@ export default {
     return {
       name: '',
       email: '',
+      password: ''
     }
   },
   methods: {
     register: function (e) {
       e.preventDefault()
-      
+
       this.axios.post('/api/users', {
         name: this.name,
-        email: this.email
+        email: this.email,
+        password:this.password
       })
     },
   }
