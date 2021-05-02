@@ -2,8 +2,8 @@
   <div id="nav">
     <router-link to="/">Home</router-link>
     <router-link to="/sign-up">Sign up</router-link>
+    <router-view/>
   </div>
-  <router-view/>
 </template>
 
 <style>
