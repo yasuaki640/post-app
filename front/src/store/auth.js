@@ -1,7 +1,8 @@
 import axios from "axios";
 
 const state = {
-    user: null
+    user: null,
+    token: null
 }
 
 const getters = {}
@@ -9,6 +10,9 @@ const getters = {}
 const mutations = {
     setUser(state, user) {
         state.user = user
+    },
+    setToken(state, token) {
+        state.token = token
     }
 }
 
@@ -16,6 +20,13 @@ const actions = {
     async register(context, data) {
         const response = await axios.post('/api/users', data)
         context.commit('setUser', response.data)
+    },
+    async login(context, data) {
+        const response = await axios.post('/api/login', data)
+        context.commit('setToken', response.data)
+    },
+    logout(context) {
+        context.commit('setToken', null)
     }
 }
 
