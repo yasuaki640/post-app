@@ -1,6 +1,6 @@
 <template>
   <div class="login">
-    <template v-if="isLoggedIn">
+    <template v-if="!isLoggedIn">
       <h1>Login</h1>
       <form @submit.prevent="login">
         <ul>
@@ -32,8 +32,6 @@
 </template>
 
 <script>
-import store from "@/store";
-
 export default {
   data() {
     return {
@@ -44,21 +42,18 @@ export default {
     }
   },
   computed: {
-    isLoggedIn: function () {
-      console.log(store.state.token)
-      return store.state["auth/token"]
+    isLoggedIn() {
+      return this.$store.getters["auth/isLoggedIn"]
     }
   },
   methods: {
     login: async function () {
       await this.$store.dispatch('auth/login', this.item)
       alert('Login succeeded.')
-      await this.$router.push('/')
     },
     logout: function () {
       this.$store.dispatch('auth/logout')
       alert('Logout succeeded.')
-      this.$router.push('/')
     }
   }
 }

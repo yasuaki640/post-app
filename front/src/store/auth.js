@@ -5,7 +5,9 @@ const state = {
     token: null
 }
 
-const getters = {}
+const getters = {
+    isLoggedIn: state => !!state.token
+}
 
 const mutations = {
     setUser(state, user) {
