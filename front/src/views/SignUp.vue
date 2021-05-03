@@ -48,13 +48,8 @@ export default {
   },
   methods: {
     register: async function () {
-      console.log(this.item)
-
-      // const res = await this.axios.post('/api/users', {
-      //   name: this.name,
-      //   email: this.email,
-      //   password: this.password
-      // })
+      await this.$store.dispatch('auth/register', this.item)
+      await this.$router.push('/')
     },
   }
 }
