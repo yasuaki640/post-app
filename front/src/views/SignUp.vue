@@ -1,7 +1,7 @@
 <template>
   <div class="about">
     <h1>Enter your account info</h1>
-    <form @submit="register">
+    <form @submit.prevent="register">
       <ul>
         <li>
           <label for="name">name :
@@ -47,9 +47,7 @@ export default {
     }
   },
   methods: {
-    register: async function (e) {
-      e.preventDefault()
-
+    register: async function () {
       console.log(this.item)
 
       // const res = await this.axios.post('/api/users', {
