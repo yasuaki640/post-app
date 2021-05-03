@@ -5,22 +5,22 @@
       <ul>
         <li>
           <label for="name">name :
-            <input id="name" v-model="item.name" type="text">
+            <input id="name" v-model="item.name" type="text" required>
           </label>
         </li>
         <li>
           <label for="email">email :
-            <input id="email" v-model="item.email" type="email">
+            <input id="email" v-model="item.email" type="email" required>
           </label>
         </li>
         <li>
           <label for="password">password :
-            <input id="password" v-model="item.password" type="password">
+            <input id="password" v-model="item.password" type="password" required>
           </label>
         </li>
         <li>
           <label for="password-confirm">password (confirm) :
-            <input id="password-confirm" v-model="item.password_confirm" type="password">
+            <input id="password-confirm" v-model="item.password_confirm" type="password" required>
           </label>
         </li>
         <li>
