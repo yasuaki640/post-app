@@ -5,13 +5,18 @@ import router from './router'
 import store from "@/store";
 import VueAxios from "vue-axios";
 
-require('@/assets/scss/style.scss')
-Vue.config.productionTip = false
+const createApp = async ()=>{
 
-Vue.use(VueAxios, axios)
+    await store.dispatch('auth/loginUser')
+    Vue.config.productionTip = false
+    Vue.use(VueAxios, axios)
+    require('@/assets/scss/style.scss')
 
-new Vue({
-    router,
-    store,
-    render: h => h(App)
-}).$mount('#app')
+    new Vue({
+        router,
+        store,
+        render: h => h(App)
+    }).$mount('#app')
+}
+
+createApp()
