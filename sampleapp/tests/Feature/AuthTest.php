@@ -86,4 +86,22 @@ class AuthTest extends TestCase
         $response->assertStatus(Response::HTTP_OK);
         $response->assertJsonStructure(['access_token', 'token_type', 'expires_in']);
     }
+
+    public function test_me_success()
+    {
+        $user = User::create([
+            'name' => 'yasu',
+            'email' => 'yasu@gmail.com',
+            'password' => '12345678'
+        ]);
+
+        $response = $this->actingAs($user)
+            ->get('/api/users/me', ['Accept' => 'application/json']);
+
+        $response->assertOk();
+        $response->assertExactJson([
+            'name' => 'yasu',
+            'email' => 'yasu@gmail.com',
+        ]);
+    }
 }
