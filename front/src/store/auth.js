@@ -1,9 +1,9 @@
 import axios from "axios";
 
-const state = {
+const state = () => ({
     user: null,
     token: null
-}
+})
 
 const getters = {
     isLoggedIn: state => !!state.token
