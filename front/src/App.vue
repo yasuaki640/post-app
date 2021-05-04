@@ -1,7 +1,16 @@
 <template>
   <div id="nav">
+
     <router-link to="/">Home</router-link>
-    <router-link to="/sign-up">Sign up</router-link>
+
+    <template v-if="isLoggedIn">
+      <router-link to="/edit-profile">Edit profile</router-link>
+    </template>
+
+    <template v-else>
+      <router-link to="/sign-up">Sign up</router-link>
+    </template>
+
     <router-view/>
   </div>
 </template>
@@ -27,3 +36,13 @@
   color: #42b983;
 }
 </style>
+
+<script>
+export default {
+  computed: {
+    isLoggedIn() {
+      return this.$store.getters["auth/isLoggedIn"]
+    }
+  }
+}
+</script>
