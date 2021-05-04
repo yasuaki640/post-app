@@ -42,6 +42,11 @@ class UserController extends Controller
         return \response()->json(UserResource::make($user), Response::HTTP_OK);
     }
 
+    public function me(): JsonResponse
+    {
+        return response()->json(auth()->user(), Response::HTTP_OK);
+    }
+
     public function update(UpdateRequest $request): JsonResponse
     {
         $request->merge(['id' => auth()->id()]);

@@ -99,7 +99,7 @@ class AuthTest extends TestCase
             ->get('/api/users/me', ['Accept' => 'application/json']);
 
         $response->assertOk();
-        $response->assertExactJson([
+        $response->assertJson([
             'name' => 'yasu',
             'email' => 'yasu@gmail.com',
         ]);
