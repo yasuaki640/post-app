@@ -64,7 +64,7 @@ class AuthTest extends TestCase
         $header = ['Accept' => 'application/json'];
 
         $response = $this->post('/api/login', $req, $header);
-        $response->assertStatus(Response::HTTP_UNAUTHORIZED);
+        $response->assertUnauthorized();
     }
 
     public function test_auth_success()
@@ -83,7 +83,7 @@ class AuthTest extends TestCase
         $header = ['Accept' => 'application/json'];
 
         $response = $this->post('/api/login', $req, $header);
-        $response->assertStatus(Response::HTTP_OK);
+        $response->assertOk();
         $response->assertJsonStructure(['access_token', 'token_type', 'expires_in']);
     }
 
