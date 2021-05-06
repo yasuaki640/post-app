@@ -23,6 +23,15 @@ const actions = {
         const response = await axios.post('/api/users', data)
         context.commit('setUser', response.data)
     },
+    async edit(context, data) {
+        const editResponse = await axios.put('/api/users/me', data)
+        if (editResponse.status / 100 !== 2) {
+            return false
+        }
+
+        context.commit('setUser', data)
+        return true
+    },
     async login(context, data) {
         const response = await axios.post('/api/login', data)
         if (response.status / 100 !== 2) {

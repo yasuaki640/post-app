@@ -51,9 +51,10 @@ export default {
   },
   methods: {
     edit: async function () {
-      await this.$store.dispatch('auth/edit', this.item)
-      alert('Edit succeeded.')
+      const result = await this.$store.dispatch('auth/edit', this.item)
+      result ? alert('Success') : alert('Fail')
 
+      //Reload this page.
       this.$router.go(0)
     },
   }
