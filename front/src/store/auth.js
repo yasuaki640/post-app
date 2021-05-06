@@ -36,6 +36,7 @@ const actions = {
     logout(context) {
         context.commit('setToken', null)
         context.commit('setUser', null)
+        localStorage.removeItem('post_app_token')
     }
 }
 
