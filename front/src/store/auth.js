@@ -25,13 +25,23 @@ const actions = {
     },
     async login(context, data) {
         const response = await axios.post('/api/login', data)
-        context.commit('setToken', response.data)
+        if (response.status / 100 !== 2) {
+            return
+        }
+        context.commit('setToken', response.data.access_token)
         localStorage.setItem('post_app_token', response.data.access_token)
+
+        const loginUserResponse = await axios.get('/api/users/me')
+        context.commit('setUser', loginUserResponse.data)
     },
     async loginUser(context) {
         const response = await axios.get('/api/users/me')
-        const user = response.data || null
-        context.commit('setUser', user)
+
+        if (response.status / 100 === 2) {
+            context.commit('setUser', response.data)
+        } else {
+            context.commit('setUser', null)
+        }
     },
     logout(context) {
         context.commit('setToken', null)
