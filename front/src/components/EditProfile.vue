@@ -1,80 +1,61 @@
 <template>
-  <div class="login">
-    <template v-if="!isLoggedIn">
-      <h1>Login</h1>
-      <form @submit.prevent="login">
-        <ul>
-          <li>
-            <label for="email">email :
-              <input id="email" v-model="item.email" type="email" required>
-            </label>
-          </li>
-          <li>
-            <label for="password">password :
-              <input id="password" v-model="item.password" type="password" required>
-            </label>
-          </li>
-          <li>
-            <label for="submit">
-              <input id="submit" type="submit" value="Login">
-            </label>
-          </li>
-        </ul>
-      </form>
-    </template>
-
-    <template v-else>
-      <h1>YOU ARE LOGGED INNNNNN!!!</h1>
-      <button @click="logout">Logout</button>
-    </template>
-
+  <div class="about">
+    <h1>Edit your account info</h1>
+    <form @submit.prevent="edit">
+      <ul>
+        <li>
+          <label for="name">name :
+            <input id="name" v-model="item.name" type="text" required>
+          </label>
+        </li>
+        <li>
+          <label for="email">email :
+            <input id="email" v-model="item.email" type="email" required>
+          </label>
+        </li>
+        <li>
+          <label for="password">password :
+            <input id="password" v-model="item.password" type="password" required>
+          </label>
+        </li>
+        <li>
+          <label for="password-confirm">password (confirm) :
+            <input id="password-confirm" v-model="item.password_confirm" type="password" required>
+          </label>
+        </li>
+        <li>
+          <label for="submit">
+            <input id="submit" type="submit" value="Edit">
+          </label>
+        </li>
+      </ul>
+    </form>
   </div>
 </template>
 
 <script>
+
 export default {
   data() {
     return {
       item: {
+        name: '',
         email: '',
         password: '',
+        password_confirm: ''
       }
     }
   },
-  computed: {
-    isLoggedIn() {
-      return this.$store.getters["auth/isLoggedIn"]
-    }
+  mounted() {
+
   },
   methods: {
-    login: async function () {
-      await this.$store.dispatch('auth/login', this.item)
-      alert('Login succeeded.')
+    edit: async function () {
+      await this.$store.dispatch('auth/edit', this.item)
+      alert('Edit succeeded.')
+
+      this.$router.go(0)
     },
-    logout: function () {
-      this.$store.dispatch('auth/logout')
-      alert('Logout succeeded.')
-    }
   }
 }
 </script>
-
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
-h3 {
-  margin: 40px 0 0;
-}
-
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-
-li {
-  margin: 0 10px;
-}
-
-a {
-  color: #42b983;
-}
-</style>
