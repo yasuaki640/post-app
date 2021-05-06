@@ -31,8 +31,8 @@ const actions = {
         context.commit('setToken', response.data.access_token)
         localStorage.setItem('post_app_token', response.data.access_token)
 
-        const loginUserResponse = await axios.get('/api/users/me')
-        context.commit('setUser', loginUserResponse.data)
+        const userResponse = await axios.get('/api/users/me')
+        context.commit('setUser', userResponse.data)
     },
     async loginUser(context) {
         const response = await axios.get('/api/users/me')
