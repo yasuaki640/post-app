@@ -26,6 +26,7 @@ const actions = {
     async login(context, data) {
         const response = await axios.post('/api/login', data)
         context.commit('setToken', response.data)
+        localStorage.setItem('post_app_token', response.data.access_token)
     },
     async loginUser(context) {
         const response = await axios.get('/api/users/me')
