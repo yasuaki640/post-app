@@ -2,6 +2,7 @@
   <div class="about">
     <h1>Edit your account info</h1>
     <form @submit.prevent="edit">
+      <input type="hidden" id="id" :value="item.id">
       <ul>
         <li>
           <label for="name">name :
@@ -39,8 +40,9 @@ export default {
   data() {
     return {
       item: {
-        name: '',
-        email: '',
+        id: this.$store.getters['auth/loginUser'].id,
+        name: this.$store.getters['auth/loginUser'].name,
+        email: this.$store.getters['auth/loginUser'].email,
         password: '',
         password_confirm: ''
       }
