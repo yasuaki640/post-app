@@ -58,7 +58,7 @@ export default {
       if (200 <= response.status && response.status <= 299) {
         alert('Success')
       } else {
-        alert(response.data)
+        alert(JSON.stringify(response.data))
       }
 
       //Reload this page.

@@ -52,7 +52,7 @@ export default {
       if (200 <= response.status && response.status <= 299) {
         alert('Login succeeded.')
       } else {
-        alert(response.data.message)
+        alert(JSON.stringify(response.data))
       }
     },
     logout: function () {
