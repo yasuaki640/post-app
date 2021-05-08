@@ -53,8 +53,13 @@ export default {
   },
   methods: {
     edit: async function () {
-      const result = await this.$store.dispatch('auth/edit', this.item)
-      result ? alert('Success') : alert('Fail')
+      const response = await this.$store.dispatch('auth/edit', this.item);
+
+      if (200 <= response.status && response.status <= 299) {
+        alert('Success')
+      } else {
+        alert('Fail')
+      }
 
       //Reload this page.
       this.$router.go(0)
