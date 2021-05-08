@@ -29,6 +29,7 @@ class UpdateRequest extends ApiRequest
             'id' => 'required|integer',
             'name' => 'required|string',
             'email' => 'required|email',
+            'password'=>'string|min:8'
         ];
     }
 }

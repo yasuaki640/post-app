@@ -58,7 +58,7 @@ export default {
       if (200 <= response.status && response.status <= 299) {
         alert('Success')
       } else {
-        alert('Fail')
+        alert(response.data)
       }
 
       //Reload this page.
