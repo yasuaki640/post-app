@@ -1,13 +1,17 @@
 <template>
   <div class="list-post">
     <h1>Posts</h1>
-    <Post></Post>
+    <template v-for="post in posts">
+      <Post></Post>
+    </template>
   </div>
 </template>
 
 <script>
 
+import Post from "../components/Post";
 export default {
+  components: {Post},
   data() {
     return {
       posts: {}
