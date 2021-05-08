@@ -20,8 +20,8 @@
           </label>
         </li>
         <li>
-          <label for="password-confirm">password confirm (Required if you want to change it.) :
-            <input id="password-confirm" v-model="item.password_confirm" type="password">
+          <label for="password-confirm">password confirmation (Required if you want to change it.) :
+            <input id="password-confirm" v-model="item.password_confirmation" type="password">
           </label>
         </li>
         <li>
@@ -44,7 +44,7 @@ export default {
         name: this.$store.getters['auth/loginUser'].name,
         email: this.$store.getters['auth/loginUser'].email,
         password: '',
-        password_confirm: ''
+        password_confirmation: ''
       }
     }
   },

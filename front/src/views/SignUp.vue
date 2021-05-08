@@ -20,7 +20,7 @@
         </li>
         <li>
           <label for="password-confirm">password (confirm) :
-            <input id="password-confirm" v-model="item.password_confirm" type="password" required>
+            <input id="password-confirm" v-model="item.password_confirmation" type="password" required>
           </label>
         </li>
         <li>
@@ -42,7 +42,7 @@ export default {
         name: '',
         email: '',
         password: '',
-        password_confirm: ''
+        password_confirmation: ''
       }
     }
   },
