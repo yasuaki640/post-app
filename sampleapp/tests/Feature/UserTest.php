@@ -199,6 +199,7 @@ class UserTest extends TestCase
         $user = User::factory()->create();
 
         $req = [
+            'id' => $user->id,
             'name' => 'yasu',
             'email' => 'y640@gmail.com',
             'password' => '12345678'
@@ -209,12 +210,39 @@ class UserTest extends TestCase
         $response = $this->actingAs($user)
             ->put('/api/users/me', $req, $header);
 
-        $response->assertStatus(Response::HTTP_NO_CONTENT);
+        $response->assertNoContent();
         $this->assertDatabaseHas('users', [
             'id' => $user->id,
             'name' => 'yasu',
             'email' => 'y640@gmail.com',
         ]);
+    }
+
+    public function test_update_password_not_changed()
+    {
+        $password = '12345678';
+        $user = User::create([
+            'name' => 'yasu',
+            'email' => 'yasu@gmail.com',
+            'password' => $password
+        ]);
+
+        $updateReq = [
+            'id' => $user->id,
+            'name' => 'tako',
+            'email' => 'tako@gmail.com',
+        ];
+        $header = ['Accept' => 'application/json'];
+        $this->actingAs($user)
+            ->put('/api/users/me', $updateReq, $header)
+            ->assertNoContent();
+
+        $authReq = [
+            'email' => 'tako@gmail.com',
+            'password' => $password,
+        ];
+        $this->post('/api/login', $authReq, $header)
+            ->assertOk();
     }
 
     public function test_destroy_failure_auth_failure()

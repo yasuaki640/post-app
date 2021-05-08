@@ -32,11 +32,8 @@ class UserRepositoryImpl implements UserRepository
     public function update(array $req): void
     {
         User::find($req['id'])
-            ->fill([
-                'name' => $req['name'],
-                'email' => $req['email'],
-                'password' => $req['password'],
-            ])->save();
+            ->fill($req)
+            ->save();
     }
 
     public function destroy(int $id): void
