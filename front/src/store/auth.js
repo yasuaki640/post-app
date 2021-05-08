@@ -35,14 +35,17 @@ const actions = {
     },
     async login(context, data) {
         const response = await axios.post('/api/login', data)
-        if (200 <= response.status && response.status <= 299) {
-            return
+        if (!(200 <= response.status && response.status <= 299)) {
+            return response
         }
+
         context.commit('setToken', response.data.access_token)
         localStorage.setItem('post_app_token', response.data.access_token)
 
         const userResponse = await axios.get('/api/users/me')
         context.commit('setUser', userResponse.data)
+
+        return response
     },
     async loginUser(context) {
         const response = await axios.get('/api/users/me')

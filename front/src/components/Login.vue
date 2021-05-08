@@ -48,8 +48,12 @@ export default {
   },
   methods: {
     login: async function () {
-      await this.$store.dispatch('auth/login', this.item)
-      alert('Login succeeded.')
+      const response = await this.$store.dispatch('auth/login', this.item)
+      if (200 <= response.status && response.status <= 299) {
+        alert('Login succeeded.')
+      } else {
+        alert(response.data.message)
+      }
     },
     logout: function () {
       this.$store.dispatch('auth/logout')
