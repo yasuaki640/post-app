@@ -25,17 +25,17 @@ const actions = {
         context.commit('setUser', response.data)
     },
     async edit(context, data) {
-        const editResponse = await axios.put('/api/users/me', data)
-        if (editResponse.status / 100 !== 2) {
-            return false
+        const response = await axios.put('/api/users/me', data)
+        if (200 <= response.status && response.status <= 299) {
+            return response
         }
 
         context.commit('setUser', data)
-        return true
+        return response
     },
     async login(context, data) {
         const response = await axios.post('/api/login', data)
-        if (response.status / 100 !== 2) {
+        if (200 <= response.status && response.status <= 299) {
             return
         }
         context.commit('setToken', response.data.access_token)
@@ -47,7 +47,7 @@ const actions = {
     async loginUser(context) {
         const response = await axios.get('/api/users/me')
 
-        if (response.status / 100 === 2) {
+        if (200 <= response.status && response.status <= 299) {
             context.commit('setUser', response.data)
         } else {
             context.commit('setUser', null)
