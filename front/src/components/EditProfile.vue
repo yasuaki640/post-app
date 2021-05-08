@@ -15,12 +15,12 @@
           </label>
         </li>
         <li>
-          <label for="password">password :
+          <label for="password">password (Required if you want to change it.) :
             <input id="password" v-model="item.password" type="password" required>
           </label>
         </li>
         <li>
-          <label for="password-confirm">password (confirm) :
+          <label for="password-confirm">password confirm (Required if you want to change it.) :
             <input id="password-confirm" v-model="item.password_confirm" type="password" required>
           </label>
         </li>
