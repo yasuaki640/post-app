@@ -4,6 +4,11 @@ import store from "../store"
 
 Vue.use(VueRouter)
 
+const redirectIfNotLogin = (to, from, next) => {
+    if (!store.getters['auth/isLoggedIn']) next({name: 'Login'})
+    else next()
+}
+
 const routes = [
     {
         path: '/',
@@ -18,23 +23,20 @@ const routes = [
     {
         path: '/edit-profile',
         name: 'EditProfile',
-        component: () => import('@/views/EditProfile.vue')
+        component: () => import('@/views/EditProfile.vue'),
+        beforeEnter: redirectIfNotLogin
     },
     {
         path: '/list-post',
         name: 'ListPost',
-        component: () => import('@/views/ListPost.vue')
+        component: () => import('@/views/ListPost.vue'),
+        beforeEnter: redirectIfNotLogin
     }
 ]
 
 const router = new VueRouter({
     mode: 'history',
     routes
-})
-
-router.beforeEach((to, from, next) => {
-    if (to.name !== 'Login' && !store.getters['auth/isLoggedIn']) next({name: 'Login'})
-    else next()
 })
 
 export default router
