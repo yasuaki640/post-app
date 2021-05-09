@@ -38,11 +38,12 @@
 
 export default {
   data() {
+    const user = this.$store.getters['auth/loginUser']
     return {
       item: {
-        id: this.$store.getters['auth/loginUser'].id,
-        name: this.$store.getters['auth/loginUser'].name,
-        email: this.$store.getters['auth/loginUser'].email,
+        id: user.id,
+        name: user.name,
+        email: user.email,
         password: '',
         password_confirmation: ''
       }
