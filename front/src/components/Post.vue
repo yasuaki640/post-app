@@ -10,12 +10,16 @@
       <tr>
         <td>{{ post.id }}</td>
         <td>{{ post.user_id }}</td>
-        <td colspan="2">{{ post.created_at }}</td>
+        <td colspan="2">{{ changeDisplayTimeBySentAt(post.created_at) }}</td>
       </tr>
       <tr>
         <td colspan="2">{{ post.body }}</td>
-        <td><button>edit</button></td>
-        <td><button>delete</button></td>
+        <td>
+          <button>edit</button>
+        </td>
+        <td>
+          <button>delete</button>
+        </td>
       </tr>
       </tbody>
     </table>
