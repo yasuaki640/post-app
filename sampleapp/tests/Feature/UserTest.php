@@ -65,7 +65,8 @@ class UserTest extends TestCase
         $req = [
             'name' => 'yasu',
             'email' => 'yasu@gmail.com',
-            'password' => '12345678'
+            'password' => '12345678',
+            'password_confirmation' => '12345678',
         ];
 
         $header = ['Accept' => 'application/json'];
@@ -202,7 +203,8 @@ class UserTest extends TestCase
             'id' => $user->id,
             'name' => 'yasu',
             'email' => 'y640@gmail.com',
-            'password' => '12345678'
+            'password' => '12345678',
+            'password_confirmation' => '12345678'
         ];
 
         $header = ['Accept' => 'application/json'];
