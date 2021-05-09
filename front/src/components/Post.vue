@@ -1,8 +1,24 @@
 <template>
   <div class="post">
-    <hr>
-    <p>id :{{ post.id }} user_id:{{ post.user_id }} sentAt:{{ changeDisplayTimeBySentAt(post.created_at) }}</p>
-    <p>{{ post.body }}</p>
+    <table>
+      <tbody>
+      <tr>
+        <th>id</th>
+        <th>user_id</th>
+        <th colspan="2">sent_at</th>
+      </tr>
+      <tr>
+        <td>{{ post.id }}</td>
+        <td>{{ post.user_id }}</td>
+        <td colspan="2">{{ post.created_at }}</td>
+      </tr>
+      <tr>
+        <td colspan="2">{{ post.body }}</td>
+        <td><button>edit</button></td>
+        <td><button>delete</button></td>
+      </tr>
+      </tbody>
+    </table>
   </div>
 </template>
 
