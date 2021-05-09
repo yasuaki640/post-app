@@ -2,7 +2,7 @@
   <div class="list-post">
     <h1>Posts</h1>
     <template v-for="post in posts">
-      <Post></Post>
+      <Post :post="post" :key="post.id"></Post>
     </template>
   </div>
 </template>
@@ -10,6 +10,7 @@
 <script>
 
 import Post from "../components/Post";
+
 export default {
   components: {Post},
   data() {
@@ -18,7 +19,7 @@ export default {
     }
   },
   async mounted() {
-    const response = (await this.axios.get('/api/posts'))
+    const response = await this.axios.get('/api/posts')
     this.posts = response.data
   },
   methods: {}

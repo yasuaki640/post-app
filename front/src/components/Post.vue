@@ -1,21 +1,18 @@
 <template>
   <div class="post">
-    {{ post }}
+    <hr>
+    <p>id :{{ post.id }} user_id:{{ post.user_id }} sentAt:{{post.created_at}}</p>
+    <p>{{ post.body }}</p>
   </div>
 </template>
 
 <script>
 
 export default {
-  data() {
-    return {
-      post: {
-        id: 0,
-        user_id: 0,
-        body: '',
-        created_at: '',
-        updated_at: '',
-      }
+  props: {
+    post: {
+      type: Object,
+      required: true
     }
   }
 }
