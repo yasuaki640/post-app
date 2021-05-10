@@ -2,7 +2,8 @@ import axios from "axios";
 
 const state = () => ({
     user: null,
-    token: null
+    token: null,
+    apiStatus: null
 })
 
 const getters = {
@@ -16,6 +17,9 @@ const mutations = {
     },
     setToken(state, token) {
         state.token = token
+    },
+    setApiStatus(state, status) {
+        state.apiStatus = status
     }
 }
 
