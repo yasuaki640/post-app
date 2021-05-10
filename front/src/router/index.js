@@ -31,6 +31,11 @@ const routes = [
         name: 'ListPost',
         component: () => import('@/views/ListPost.vue'),
         beforeEnter: redirectIfNotLogin
+    },
+    {
+        path: '/system-error',
+        name: 'SystemError',
+        component: () => import('@/views/errors/System.vue'),
     }
 ]
 
