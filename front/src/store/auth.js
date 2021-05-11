@@ -40,6 +40,8 @@ const actions = {
     async login(context, data) {
         const response = await axios.post('/api/login', data)
         if (!(200 <= response.status && response.status <= 299)) {
+            context.commit('setApiStatus', false)
+            context.commit('error/setCode', response.status, { root: true })
             return response
         }
 
@@ -48,6 +50,7 @@ const actions = {
 
         const userResponse = await axios.get('/api/users/me')
         context.commit('setUser', userResponse.data)
+        context.commit('setApiStatus', true)
 
         return response
     },

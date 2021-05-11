@@ -43,6 +43,22 @@ export default {
   computed: {
     isLoggedIn() {
       return this.$store.getters["auth/isLoggedIn"]
+    },
+    errorCode() {
+      return this.$store.state.error.code
+    }
+  },
+  watch: {
+    errorCode: {
+      handler(val) {
+        if (val >= 500) {
+          this.$router.push('/system-error')
+        }
+      },
+      immediate: true
+    },
+    $route() {
+      this.$store.commit('error/setCode', null)
     }
   }
 }
