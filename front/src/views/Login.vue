@@ -51,7 +51,7 @@ export default {
       const response = await this.$store.dispatch('auth/login', this.item)
       if (200 <= response.status && response.status <= 299) {
         alert('Login succeeded.')
-      } else {
+      } else if(400 <= response.status && response.status <= 499){
         alert(JSON.stringify(response.data))
       }
     },
