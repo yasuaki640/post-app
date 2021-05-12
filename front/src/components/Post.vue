@@ -15,10 +15,10 @@
       <tr>
         <td colspan="2">{{ post.body }}</td>
         <td>
-          <button>edit</button>
+          <button v-if="isBelongsToLoginUser">edit</button>
         </td>
         <td>
-          <button>delete</button>
+          <button v-if="isBelongsToLoginUser">delete</button>
         </td>
       </tr>
       </tbody>
@@ -73,6 +73,14 @@ export default {
     isToday(date) {
       const today = new Date();
       return date.toDateString() === today.toDateString();
+    }
+  },
+  computed: {
+    isBelongsToLoginUser: function () {
+      return this.post.user_id === this.$store.getters['auth/loginUser'].id;
+    },
+    displayTime: function () {
+      
     }
   }
 }
