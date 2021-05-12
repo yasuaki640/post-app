@@ -10,7 +10,7 @@
       <tr>
         <td>{{ post.id }}</td>
         <td>{{ post.user_id }}</td>
-        <td colspan="2">{{ changeDisplayTimeBySentAt(post.created_at) }}</td>
+        <td colspan="2">{{ displayTime }}</td>
       </tr>
       <tr>
         <td colspan="2">{{ post.body }}</td>
@@ -80,7 +80,22 @@ export default {
       return this.post.user_id === this.$store.getters['auth/loginUser'].id;
     },
     displayTime: function () {
-      
+      if (!this.post.created_at) {
+        return
+      }
+
+      const sentAtDate = new Date(this.post.created_at)
+
+      if (this.isToday(sentAtDate)) {
+        const h = sentAtDate.getHours().toString().padStart(2, '0')
+        const m = sentAtDate.getMinutes().toString().padStart(2, '0')
+        return `${h}:${m}`
+
+      } else {
+        const m = (sentAtDate.getMonth() + 1).toString().padStart(2, '0')
+        const d = sentAtDate.getDate().toString().padStart(2, '0')
+        return `${m}/${d}`
+      }
     }
   }
 }
