@@ -57,6 +57,8 @@ export default {
       return date.toDateString() === today.toDateString();
     },
     async deletePost() {
+      if (!confirm('Delete the post. Is it OK?')) return
+
       const response = await axios.delete('/api/posts/' + this.post.id);
       if (!(200 <= response.status && response.status <= 299)) {
         alert(JSON.stringify(response.data))

@@ -23,18 +23,7 @@
 import axios from "axios"
 
 export default {
-  props: {
-    post: {
-      user_id: {
-        type: Number,
-        required: true
-      },
-      body: {
-        type: String,
-        required: true
-      }
-    }
-  },
+
   data() {
     const user = this.$store.getters['auth/loginUser']
     return {
