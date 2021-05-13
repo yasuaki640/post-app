@@ -30,7 +30,7 @@ const actions = {
     },
     async edit(context, data) {
         const response = await axios.put('/api/users/me', data)
-        if (200 <= response.status && response.status <= 299) {
+        if (!(200 <= response.status && response.status <= 299)) {
             return response
         }
 
