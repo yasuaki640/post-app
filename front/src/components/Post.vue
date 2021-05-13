@@ -50,26 +50,6 @@ export default {
     }
   },
   methods: {
-    // if sent at is today return hh:mm time str、else mm/dd time str。
-    changeDisplayTimeBySentAt(sentAtStr) {
-      if (!sentAtStr) {
-        return
-      }
-
-      const sentAtDate = new Date(sentAtStr)
-
-      if (this.isToday(sentAtDate)) {
-        const h = sentAtDate.getHours().toString().padStart(2, '0')
-        const m = sentAtDate.getMinutes().toString().padStart(2, '0')
-        return `${h}:${m}`
-
-      } else {
-        const m = (sentAtDate.getMonth() + 1).toString().padStart(2, '0')
-        const d = sentAtDate.getDate().toString().padStart(2, '0')
-        return `${m}/${d}`
-      }
-    },
-
     isToday(date) {
       const today = new Date();
       return date.toDateString() === today.toDateString();
