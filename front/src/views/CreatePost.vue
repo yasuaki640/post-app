@@ -20,6 +20,7 @@
 </template>
 
 <script>
+import axios from "axios"
 
 export default {
   props: {
@@ -45,7 +46,16 @@ export default {
   },
   methods: {
     create: async function () {
-      alert(this.item.body);
+      const response = await axios.post('api/posts', this.item);
+
+      if (200 <= response.status && response.status <= 299) {
+        alert('Success')
+      } else if (500 <= response.status) {
+        await this.$router.push('/system-error')
+      } else {
+        alert(JSON.stringify(response.data))
+      }
+
       this.item.body = ''
     },
   }
