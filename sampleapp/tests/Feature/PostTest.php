@@ -130,6 +130,23 @@ class PostTest extends TestCase
         $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
     }
 
+    public function test_update_failure_try_to_update_not_own()
+    {
+        $user = User::factory()->create();
+        $post = Post::factory()->create();
+
+        $req = [
+            'id' => $post->id,
+            'body' => 'fixed!!!'
+        ];
+        $header = ['Accept' => 'application/json'];
+
+        $response = $this->actingAs($user)
+            ->put('/api/posts', $req, $header);
+
+        $response->assertForbidden();
+    }
+
     public function test_update_success()
     {
         $post = Post::factory()->create();
@@ -179,6 +196,19 @@ class PostTest extends TestCase
     }
 
     public function test_destroy_failure_try_to_delete_others_post()
+    {
+        $user = User::factory()->create();
+        $post = Post::factory()->create();
+
+        $header = ['Accept' => 'application/json'];
+
+        $response = $this->actingAs($user)
+            ->delete('/api/posts/' . $post->id, [], $header);
+
+        $response->assertForbidden();
+    }
+
+    public function test_destroy_failure_not_own_post()
     {
         $user = User::factory()->create();
         $post = Post::factory()->create();
