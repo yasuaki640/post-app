@@ -30,12 +30,17 @@ const routes = [
         path: '/list-post',
         name: 'ListPost',
         component: () => import('@/views/ListPost.vue'),
-        beforeEnter: redirectIfNotLogin
+        beforeEnter: redirectIfNotLogin,
     },
     {
         path: '/system-error',
         name: 'SystemError',
         component: () => import('@/views/errors/System.vue'),
+    },
+    {
+        path: '/create-post',
+        name: 'CreatePost',
+        component: () => import('@/views/CreatePost.vue')
     }
 ]
 

@@ -22,6 +22,5 @@ export default {
     const response = await this.axios.get('/api/posts')
     this.posts = response.data
   },
-  methods: {}
 }
 </script>

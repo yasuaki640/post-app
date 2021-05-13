@@ -6,6 +6,7 @@
     <template v-if="isLoggedIn">
       <router-link to="/edit-profile">Edit profile</router-link>
       <router-link to="/list-post">List Post</router-link>
+      <router-link :to="{ path: 'create-post'}">Create post</router-link>
     </template>
 
     <template v-else>
