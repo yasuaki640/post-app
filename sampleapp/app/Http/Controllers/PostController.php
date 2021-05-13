@@ -48,7 +48,7 @@ class PostController extends Controller
     public function update(UpdateRequest $request): JsonResponse
     {
         if ($request->user()->cannot('update', Post::find($request->id))) {
-            abort(403);
+            return response()->json(['message' => 'You do not own this post.'], Response::HTTP_FORBIDDEN);
         }
         $request->merge(['user_id' => auth()->id()]);
         $this->service->update($request->toArray());
@@ -59,7 +59,7 @@ class PostController extends Controller
     public function destroy(DeleteRequest $request): JsonResponse
     {
         if ($request->user()->cannot('destroy', Post::find($request->post_id))) {
-            abort(403);
+            return response()->json(['message' => 'You do not own this post.'], Response::HTTP_FORBIDDEN);
         }
         $this->service->destroy(intval($request->post_id));
 
