@@ -15,7 +15,7 @@
       <tr>
         <td colspan="2">{{ post.body }}</td>
         <td>
-          <button v-if="isBelongsToLoginUser">edit</button>
+          <router-link v-if="isBelongsToLoginUser" :to="{ path: 'edit-post', query : { id : post.id }}">edit</router-link>
         </td>
         <td>
           <button v-if="isBelongsToLoginUser">delete</button>
