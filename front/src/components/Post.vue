@@ -15,10 +15,11 @@
       <tr>
         <td colspan="2">{{ post.body }}</td>
         <td>
-          <router-link v-if="isBelongsToLoginUser" :to="{ path: 'edit-post', query : { id : post.id }}">edit</router-link>
+          <router-link v-if="isBelongsToLoginUser" :to="{ path: 'edit-post', query : { id : post.id }}">edit
+          </router-link>
         </td>
         <td>
-          <button v-if="isBelongsToLoginUser">delete</button>
+          <a v-on:click="deletePost">delete</a>
         </td>
       </tr>
       </tbody>
@@ -27,6 +28,7 @@
 </template>
 
 <script>
+import axios from "axios";
 
 export default {
   props: {
@@ -53,6 +55,15 @@ export default {
     isToday(date) {
       const today = new Date();
       return date.toDateString() === today.toDateString();
+    },
+    async deletePost() {
+      const response = await axios.delete('/api/posts/' + this.post.id);
+      if (!(200 <= response.status && response.status <= 299)) {
+        alert(response.data.message)
+        return
+      }
+
+      this.$router.go(0)
     }
   },
   computed: {
