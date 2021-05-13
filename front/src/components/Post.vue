@@ -19,7 +19,7 @@
           </router-link>
         </td>
         <td>
-          <a v-on:click="deletePost">delete</a>
+          <a v-if="isBelongsToLoginUser" v-on:click="deletePost">delete</a>
         </td>
       </tr>
       </tbody>
@@ -59,7 +59,7 @@ export default {
     async deletePost() {
       const response = await axios.delete('/api/posts/' + this.post.id);
       if (!(200 <= response.status && response.status <= 299)) {
-        alert(response.data.message)
+        alert(JSON.stringify(response.data))
         return
       }
 
