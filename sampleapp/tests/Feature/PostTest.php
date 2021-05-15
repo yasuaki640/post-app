@@ -53,12 +53,15 @@ class PostTest extends TestCase
 
         $response->assertOk();
 
-        $expected = PostResource::collection($posts)->jsonSerialize();
         $response->assertJsonStructure([
             '*' => [
                 'id',
-                'user',
-                'created_at'
+                'user' => [
+                    'id',
+                    'name'
+                ],
+                'created_at',
+                'updated_at'
             ]
         ]);
     }
