@@ -26,6 +26,8 @@ use Illuminate\Support\Carbon;
  * @method static Builder|Comment wherePostId($value)
  * @method static Builder|Comment whereUpdatedAt($value)
  * @mixin \Eloquent
+ * @property string|null $deleted_at
+ * @method static Builder|Comment whereDeletedAt($value)
  */
 class Comment extends Model
 {
