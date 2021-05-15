@@ -4,12 +4,12 @@
       <tbody>
       <tr>
         <th>id</th>
-        <th>user_id</th>
+        <th>user name</th>
         <th colspan="2">sent_at</th>
       </tr>
       <tr>
         <td>{{ post.id }}</td>
-        <td>{{ post.user_id }}</td>
+        <td>{{ post.user.name }}</td>
         <td colspan="2">{{ displayTime }}</td>
       </tr>
       <tr>
@@ -37,16 +37,34 @@ export default {
         type: Number,
         required: true
       },
-      user_id: {
-        type: Number,
-        required: true
+      user: {
+        id: {
+          type: Number,
+          required: true
+        },
+        name: {
+          type: String,
+          required: true
+        },
+        created_at: {
+          type: Date,
+          required: true
+        },
+        updated_at: {
+          type: Date,
+          required: true
+        }
       },
       body: {
         type: String,
         required: true
       },
       created_at: {
-        type: String,
+        type: Date,
+        required: true
+      },
+      updated_at: {
+        type: Date,
         required: true
       }
     }
