@@ -4,8 +4,8 @@
     <router-link to="/">Login</router-link>
 
     <template v-if="isLoggedIn">
-      <router-link to="/edit-profile">Edit profile</router-link>
-      <router-link to="/list-post">List Post</router-link>
+      <router-link :to="{ path: 'edit-profile'}">Edit profile</router-link>
+      <router-link :to="{ path: 'list-post'}">List Post</router-link>
       <router-link :to="{ path: 'create-post'}">Create post</router-link>
     </template>
 
