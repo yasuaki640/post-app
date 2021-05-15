@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources;
 
+use App\Models\User;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class PostResource extends JsonResource
@@ -17,6 +18,7 @@ class PostResource extends JsonResource
         return [
             'id' => $this->id,
             'user_id' => $this->user_id,
+            'user' => UserResource::make($this->whenLoaded('user')),
             'body' => $this->body,
             'created_at' => $this->created_at,
         ];
