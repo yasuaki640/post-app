@@ -39,6 +39,7 @@ export default {
 
       if (200 <= response.status && response.status <= 299) {
         alert('Success')
+        await this.$router.push('/list-post')
       } else if (500 <= response.status) {
         await this.$router.push('/system-error')
       } else {
