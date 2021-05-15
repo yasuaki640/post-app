@@ -26,7 +26,13 @@ const mutations = {
 const actions = {
     async register(context, data) {
         const response = await axios.post('/api/users', data)
-        context.commit('setUser', response.data)
+
+        if (200 <= response.status && response.status <= 299) {
+            alert('Success')
+        }else{
+            context.commit('setApiStatus', false)
+            context.commit('error/setCode', response.status, {root: true})
+        }
     },
     async edit(context, data) {
         const response = await axios.put('/api/users/me', data)
@@ -41,7 +47,7 @@ const actions = {
         const response = await axios.post('/api/login', data)
         if (!(200 <= response.status && response.status <= 299)) {
             context.commit('setApiStatus', false)
-            context.commit('error/setCode', response.status, { root: true })
+            context.commit('error/setCode', response.status, {root: true})
             return response
         }
 
