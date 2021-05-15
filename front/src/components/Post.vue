@@ -88,7 +88,7 @@ export default {
   },
   computed: {
     isBelongsToLoginUser: function () {
-      return this.post.user_id === this.$store.getters['auth/loginUser'].id;
+      return this.post.user.id === this.$store.getters['auth/loginUser'].id;
     },
     displayTime: function () {
       if (!this.post.created_at) {
