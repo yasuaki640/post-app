@@ -54,7 +54,13 @@ class PostTest extends TestCase
         $response->assertOk();
 
         $expected = PostResource::collection($posts)->jsonSerialize();
-        $response->assertExactJson($expected);
+        $response->assertJsonStructure([
+            '*' => [
+                'id',
+                'user',
+                'created_at'
+            ]
+        ]);
     }
 
     public function test_show_failure_validation_failure_string_id()
