@@ -49,7 +49,6 @@ export default {
   methods: {
     register: async function () {
       await this.$store.dispatch('auth/register', this.item)
-      alert('Registration succeeded.')
       await this.$router.push('/')
     },
   }
