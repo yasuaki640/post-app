@@ -18,8 +18,6 @@ use Illuminate\Support\Carbon;
  * @property string $body
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
- * @property-read Collection|Comment[] $comments
- * @property-read int|null $comments_count
  * @method static Builder|Post newModelQuery()
  * @method static Builder|Post newQuery()
  * @method static Builder|Post query()
@@ -49,10 +47,5 @@ class Post extends Model
     public function user()
     {
         return $this->belongsTo(User::class);
-    }
-
-    public function comments()
-    {
-        return $this->hasMany(Comment::class);
     }
 }

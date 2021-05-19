@@ -42,8 +42,6 @@ use Tymon\JWTAuth\Contracts\JWTSubject;
  * @method static Builder|User whereUpdatedAt($value)
  * @mixin \Eloquent
  * @property Carbon|null $deleted_at
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Comment[] $comments
- * @property-read int|null $comments_count
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Post[] $posts
  * @property-read int|null $posts_count
  * @method static \Illuminate\Database\Query\Builder|User onlyTrashed()
@@ -112,10 +110,5 @@ class User extends Authenticatable implements JWTSubject
     public function posts()
     {
         return $this->hasMany(Post::class);
-    }
-
-    public function comments()
-    {
-        return $this->hasMany(Comment::class);
     }
 }
