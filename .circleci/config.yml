@@ -5,7 +5,6 @@
 version: 2
 jobs:
   build:
-    working_directory: ~/sampleapp
     docker:
       # Specify the version you desire here
       - image: circleci/php:8.0.3-fpm-node-browsers
@@ -29,12 +28,12 @@ jobs:
       - restore_cache:
           keys:
             # "composer.lock" can be used if it is committed to the repo
-            - v1-dependencies-{{ checksum "composer.json" }}
+            - v1-dependencies-{{ checksum "./sampleapp/composer.json" }}
             # fallback to using the latest cache if no exact match is found
             - v1-dependencies-
-      - run: pwd
-      - run: ls -la
-      - run: composer install -n --prefer-dist
+      - run:
+          working_directory: ./sampleapp
+          command: composer install -n --prefer-dist
 
       - save_cache:
           key: v1-dependencies-{{ checksum "./sampleapp/composer.json" }}
@@ -44,16 +43,21 @@ jobs:
           keys:
             - node-v1-{{ checksum "./sampleapp/package.json" }}
             - node-v1-
-      - run: yarn install
+      - run:
+          working_directory: ./sampleapp
+          command: yarn install
       - save_cache:
           key: node-v1-{{ checksum "./sampleapp/package.json" }}
           paths:
             - node_modules
 
       # prepare the database
-      - run: touch storage/testing.sqlite
-      - run: php artisan migrate --env=testing --database=sqlite_testing --force
-
+      - run:
+          working_directory: ./sampleapp
+          command: touch storage/testing.sqlite
+      - run:
+          working_directory: ./sampleapp
+          command: php artisan migrate --env=testing --database=sqlite_testing --force
       # run tests with phpunit or codecept
       #- run: ./vendor/bin/phpunit
       - run: ./vendor/bin/codecept build
