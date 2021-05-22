@@ -54,7 +54,7 @@ jobs:
       # prepare the database
       - run:
           working_directory: ./sampleapp
-          command: touch storage/database.sqlite
+          command: touch database/database.sqlite
       - run:
           working_directory: ./sampleapp
           command: php artisan migrate --env=testing --database=sqlite --force
