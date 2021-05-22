@@ -8,7 +8,7 @@ jobs:
     workin_directory: ./sampleapp
     docker:
       # Specify the version you desire here
-      - image: circleci/8.0.3-fpm-node-browsers
+      - image: circleci/php:8.0.3-fpm-node-browsers
 
       # Specify service dependencies here if necessary
       # CircleCI maintains a library of pre-built images
