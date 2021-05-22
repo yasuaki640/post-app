@@ -8,7 +8,10 @@ jobs:
     docker:
       # Specify the version you desire here
       - image: circleci/php:8.0.3-fpm-node-browsers
-
+      - image: circleci/mysql:8.0.3
+        environment:
+          MYSQL_USER: homestead
+          MYSQL_DB: homestead_test
       # Specify service dependencies here if necessary
       # CircleCI maintains a library of pre-built images
       # documented at https://circleci.com/docs/2.0/circleci-images/
@@ -51,20 +54,13 @@ jobs:
           paths:
             - node_modules
 
-      # prepare the database
+      - run:
+          name: wait for db
+          command: dockerize -wait tcp://localhost:3306 -timeout 1m
       - run:
           working_directory: ./sampleapp
-          command: touch database/database.sqlite
-      - run:
-          working_directory: ./sampleapp
-          command: php artisan migrate --env=testing --database=sqlite --force
+          command: php artisan migrate --env=testing --database=mysql_test --force
       # run tests with phpunit or codecept
       - run:
           working_directory: ./sampleapp
           command: vendor/bin/phpunit
-      - run:
-          working_directory: ./sampleapp
-          command: vendor/bin/codecept build
-      - run:
-          working_directory: ./sampleapp
-          command: vendor/bin/codecept run
