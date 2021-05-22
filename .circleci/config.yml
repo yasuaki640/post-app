@@ -57,7 +57,7 @@ jobs:
           command: touch storage/testing.sqlite
       - run:
           working_directory: ./sampleapp
-          command: php artisan migrate --env=testing --database=sqlite_testing --force
+          command: php artisan migrate --env=testing --database=sqlite --force
       # run tests with phpunit or codecept
       #- run: ./vendor/bin/phpunit
       - run: ./vendor/bin/codecept build
