@@ -54,11 +54,17 @@ jobs:
       # prepare the database
       - run:
           working_directory: ./sampleapp
-          command: touch storage/testing.sqlite
+          command: touch storage/database.sqlite
       - run:
           working_directory: ./sampleapp
           command: php artisan migrate --env=testing --database=sqlite --force
       # run tests with phpunit or codecept
-      #- run: ./vendor/bin/phpunit
-      - run: ./vendor/bin/codecept build
-      - run: ./vendor/bin/codecept run
+      - run:
+          working_directory: ./sampleapp
+          command: ./vendor/bin/phpunit
+      - run:
+          working_directory: ./sampleapp
+          command: ./vendor/bin/codecept build
+      - run:
+          working_directory: ./sampleapp
+          command: ./vendor/bin/codecept run
