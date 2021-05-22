@@ -5,7 +5,7 @@
 version: 2
 jobs:
   build:
-    workin_directory: ./sampleapp
+    working_directory: ./sampleapp
     docker:
       # Specify the version you desire here
       - image: circleci/php:8.0.3-fpm-node-browsers
