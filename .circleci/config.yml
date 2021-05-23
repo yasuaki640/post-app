@@ -24,7 +24,7 @@ jobs:
       - checkout
 
       - run: sudo apt update # PHP CircleCI 2.0 Configuration File# PHP CircleCI 2.0 Configuration File sudo apt install zlib1g-dev libsqlite3-dev
-      - run: sudo docker-php-ext-install zip
+      - run: sudo docker-php-ext-install zip pdo_mysql
 
       # Download and cache dependencies
       - restore_cache:
@@ -61,9 +61,9 @@ jobs:
       - run:
           name: wait for db
           command: dockerize -wait tcp://localhost:3306 -timeout 1m
-      # - run:
-      #     working_directory: ./sampleapp
-      #     command: php artisan migrate --env=testing --database=mysql_test --force
+      - run:
+          working_directory: ./sampleapp
+          command: php artisan migrate --env=testing --database=mysql_test --force
       # run tests with phpunit or codecept
       - run:
           working_directory: ./sampleapp
