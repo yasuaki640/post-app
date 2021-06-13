@@ -15,7 +15,7 @@ class UserRepositoryImpl implements UserRepository
         return User::create([
             'name' => $req['name'],
             'email' => $req['email'],
-            'password' => $req['password'],
+            'password' => \Hash::make($req['password']),
         ])->id;
     }
 
